@@ -105,14 +105,27 @@ section{padding-block:clamp(56px,8vw,96px)}
 .obs{display:flex;gap:12px;align-items:flex-start;max-width:480px;background:#eef4e6;border:1px solid #cfe0bd;border-left:4px solid #4f8a3c;border-radius:10px;padding:12px 14px;font-size:.88rem;color:#2f4a27}
 .obs b{display:block;color:#2f5a22;font-size:.8rem;letter-spacing:.06em;text-transform:uppercase;margin-bottom:2px}
 .obs p{margin:0}
-.cal{display:grid;gap:10px;margin-bottom:6px}
-.yr{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-.yr>b{font-family:var(--f-mono);font-size:.74rem;color:var(--muted);width:44px}
-.pill{font-family:var(--f-body);font-weight:700;font-size:.86rem;text-transform:capitalize;padding:7px 14px 6px;border-radius:999px;border:1px solid var(--line);background:var(--card);color:var(--forest);cursor:pointer;display:inline-flex;align-items:center;gap:7px}
-.pill small{font-family:var(--f-mono);font-size:.66rem;font-weight:600;color:var(--copper)}
-.pill:hover:not([aria-pressed="true"]){border-color:var(--moss)}
-.pill[aria-pressed="true"]{background:var(--forest);border-color:var(--forest);color:var(--paper)}
-.pill[aria-pressed="true"] small{color:var(--lichen)}
+.cal-layout{display:grid;grid-template-columns:270px minmax(0,1fr);gap:clamp(18px,3vw,32px);align-items:start}
+@media (max-width:880px){.cal-layout{grid-template-columns:1fr}}
+.cal-side{position:sticky;top:calc(env(safe-area-inset-top,0px) + 74px);display:grid;gap:18px;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px}
+@media (max-width:880px){.cal-side{position:static}}
+.yr-t{font-family:var(--f-display);font-weight:700;font-size:1.5rem;color:var(--forest);line-height:1;display:flex;align-items:baseline;justify-content:space-between}
+.yr-t small{font-family:var(--f-mono);font-size:.68rem;font-weight:400;color:var(--muted)}
+.mgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:10px}
+.mt{font-family:var(--f-body);font-weight:700;font-size:.82rem;text-transform:capitalize;padding:9px 2px 7px;border-radius:10px;border:1px solid var(--line);background:var(--paper);color:var(--forest);cursor:pointer;display:grid;gap:3px;justify-items:center}
+.mt small{font-family:var(--f-mono);font-size:.6rem;font-weight:600;color:var(--copper);text-transform:none}
+.mt:hover:not(:disabled):not([aria-pressed="true"]){border-color:var(--moss)}
+.mt[aria-pressed="true"]{background:var(--forest);border-color:var(--forest);color:var(--paper)}
+.mt[aria-pressed="true"] small{color:var(--lichen)}
+.mt:disabled{opacity:.4;cursor:default;background:transparent;border-style:dashed}
+.mt:disabled small{color:var(--muted)}
+.strip{display:grid;grid-template-columns:repeat(auto-fill,minmax(28px,1fr));gap:4px;margin:-6px 0 22px}
+.strip a,.strip i{font-family:var(--f-mono);font-style:normal;font-size:.72rem;text-align:center;padding:5px 0;border-radius:6px;font-variant-numeric:tabular-nums}
+.strip i{color:var(--muted);opacity:.45}
+.strip a{background:var(--paper-2);color:var(--forest);font-weight:600;text-decoration:none;box-shadow:inset 0 -3px 0 var(--who)}
+.strip a:hover{background:var(--lichen)}
+.strip .retro{grid-column:1/-1;font-family:var(--f-mono);font-size:.74rem;color:var(--copper);opacity:1;text-align:left}
+.e{scroll-margin-top:90px}
 .panel-m{margin-top:22px;background:var(--card);border:1px solid var(--line);border-radius:22px;padding:clamp(18px,3.4vw,34px);scroll-margin-top:80px}
 .pm-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:14px;border-bottom:1px solid var(--line);padding-bottom:18px;margin-bottom:22px}
 .pm-head h3{font-family:var(--f-display);font-size:clamp(1.8rem,4vw,2.6rem);color:var(--forest);line-height:1}
@@ -268,16 +281,18 @@ footer.site .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:
   <div class="wrap">
     <div class="head"><span class="kicker">Diário de bordo</span><h2>Mês a mês</h2><p class="lead">Escolha um mês para ler as anotações mais importantes daquele período, resumidas do caderno.</p></div>
     <div class="cal-top">
-      <div class="legend"><span class="g">Gabriel</span><span class="v">Vitória</span><span class="t">Taiane Araújo - Orientadora</span><span class="b">Bryan</span></div>
-      <div class="obs"><div><b>Observação · anotações em verde</b><p>As anotações em verde foram escritas por Bryan Jonathan Souza Cardoso, antigo integrante do grupo, que participou do projeto até julho de 2026 e deixou alguns registros no caderno.</p></div></div>
+            <div class="obs"><div><b>Observação · anotações em verde</b><p>As anotações em verde foram escritas por Bryan Jonathan Souza Cardoso, antigo integrante do grupo, que participou do projeto até julho de 2026 e deixou alguns registros no caderno.</p></div></div>
     </div>
-    <div class="cal" id="calGrid" role="group" aria-label="Meses do diário"></div>
+    <div class="cal-layout">
+    <aside class="cal-side" id="calGrid" aria-label="Meses do diário"></aside>
     <div class="panel-m" id="panel" aria-live="polite">
       <div class="pm-head">
         <div><h3 id="pmTitle">—</h3><p class="pm-hl" id="pmHl"></p></div>
         <div class="pm-nav"><button id="pmPrev" aria-label="Mês anterior">←</button><button id="pmNext" aria-label="Próximo mês">→</button></div>
       </div>
+      <div class="strip" id="pmDays" aria-label="Dias do mês"></div>
       <div class="list" id="pmList"></div>
+    </div>
     </div>
   </div>
 </section>
@@ -375,16 +390,25 @@ const WD=["dom","seg","ter","qua","qui","sex","sáb"];
 const byM=k=>E.filter(e=>e[0].startsWith(k));
 const active=[...new Set(E.map(e=>e[0].slice(0,7)))].sort();
 const grid=document.getElementById("calGrid");
-grid.innerHTML=["2025","2026"].map(y=>`<div class="yr"><b>${y}</b>${active.filter(k=>k.startsWith(y)).map(k=>`<button class="pill" id="mc-${k}" data-k="${k}" aria-pressed="false">${MN[+k.slice(5)-1]}<small>${byM(k).length}</small></button>`).join("")}</div>`).join("");
+grid.innerHTML=[[2025,[7,8,9,10,11,12]],[2026,[1,2,3,4,5,6,7,8,9,10]]].map(([y,ms])=>{
+  const tot=E.filter(e=>e[0].startsWith(y)).length;
+  return `<div><div class="yr-t">${y}<small>${tot} anotações</small></div><div class="mgrid">${ms.map(m=>{const k=`${y}-${String(m).padStart(2,"0")}`,n=byM(k).length;
+    return `<button class="mt" id="mc-${k}" data-k="${k}" aria-pressed="false" ${n?"":"disabled"}>${MN[m-1]}<small>${n?n+(n===1?" anot.":" anot."):"férias"}</small></button>`}).join("")}</div></div>`}).join("")
+ +`<div class="legend" style="flex-direction:column;gap:6px"><span class="g">Gabriel</span><span class="v">Vitória</span><span class="t">Taiane Araújo - Orientadora</span><span class="b">Bryan</span></div>`;
 let cur=active[active.length-1];
 function show(k,scroll){
   cur=k;const [y,m]=k.split("-").map(Number),list=byM(k);
-  grid.querySelectorAll(".pill").forEach(b=>b.setAttribute("aria-pressed",b.dataset.k===k));
+  grid.querySelectorAll(".mt").forEach(b=>b.setAttribute("aria-pressed",b.dataset.k===k));
   document.getElementById("pmTitle").innerHTML=`${MF[m-1]}<small>${y} · ${list.length} ${list.length===1?"anotação":"anotações"}</small>`;
   document.getElementById("pmHl").innerHTML=`<b>Destaque do mês</b>${esc(HL[k]||"")}`;
-  document.getElementById("pmList").innerHTML=list.map(e=>{
+  const days=new Date(y,m,0).getDate(),on={};
+  if(y<2026){document.getElementById("pmDays").innerHTML=`<i class="retro">Anotações escritas depois, sem o dia exato.</i>`}
+  else{list.forEach((e,i)=>{const d=+e[0].slice(8);if(!on[d])on[d]=[e,i]});
+    let h="";for(let d=1;d<=days;d++)h+=on[d]?`<a href="#e-${k}-${on[d][1]}" class="${on[d][0][1]}" title="${esc(on[d][0][2])}">${d}</a>`:`<i>${d}</i>`;
+    document.getElementById("pmDays").innerHTML=h}
+  document.getElementById("pmList").innerHTML=list.map((e,idx)=>{
     const dt=new Date(e[0]+"T12:00:00"),r=retro(e);
-    return `<article class="e ${e[1]}"><div class="day">${r?`<b>${MN[m-1]}</b><small>${y}</small>`:`<b>${e[0].slice(8)}</b><small>${WD[dt.getDay()]}</small>`}</div>
+    return `<article class="e ${e[1]}" id="e-${k}-${idx}"><div class="day">${r?`<b>${MN[m-1]}</b><small>${y}</small>`:`<b>${e[0].slice(8)}</b><small>${WD[dt.getDay()]}</small>`}</div>
     <div class="card${e[1]==="t"?" letter":""}"><span class="who">${WHO[e[1]]}</span><h4>${esc(e[2])}</h4><p>${esc(e[3])}</p>
     ${e[4].length?`<div class="data">${e[4].map(d=>`<span>${esc(d)}</span>`).join("")}</div>`:""}
     ${e[5]?`<div class="note">${esc(e[5])}</div>`:""}
@@ -394,7 +418,7 @@ function show(k,scroll){
   document.getElementById("pmPrev").disabled=i<=0;document.getElementById("pmNext").disabled=i>=active.length-1;
   if(scroll)document.getElementById("panel").scrollIntoView({block:"nearest"});
 }
-grid.addEventListener("click",ev=>{const b=ev.target.closest(".pill");if(b)show(b.dataset.k)});
+grid.addEventListener("click",ev=>{const b=ev.target.closest(".mt");if(b&&!b.disabled)show(b.dataset.k,innerWidth<880)});
 document.getElementById("pmPrev").onclick=()=>{const i=active.indexOf(cur);if(i>0)show(active[i-1])};
 document.getElementById("pmNext").onclick=()=>{const i=active.indexOf(cur);if(i<active.length-1)show(active[i+1])};
 
