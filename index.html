@@ -1,0 +1,407 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>EcoBreath</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,800&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: caderno de laboratório botânico — papel claro, verde-floresta, cobre dos circuitos; seções alternam texto e "fichas" de dados; linha do tempo horizontal por mês. */
+:root{
+  --paper:#f5f2e8;
+  --paper-2:#ebe6d5;
+  --card:#fffdf6;
+  --forest:#1b3326;
+  --moss:#4c6a43;
+  --leaf:#6f8f4e;
+  --lichen:#d8dc6a;
+  --copper:#a8702e;
+  --ink:#17231b;
+  --muted:#5a6a5c;
+  --line:#d8d0b9;
+  --f-display:"Fraunces",Georgia,"Times New Roman",serif;
+  --f-body:"Manrope",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
+  --wrap:1180px;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+body{background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:16.5px;line-height:1.65}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--paper)}
+img{max-width:100%;display:block}
+a{color:inherit}
+h1,h2,h3,h4{text-wrap:balance;margin:0}
+.wrap{max-width:var(--wrap);margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.kicker{font-family:var(--f-mono);font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:var(--copper);font-weight:600}
+h2{font-family:var(--f-display);font-weight:700;font-size:clamp(1.9rem,4.2vw,3rem);line-height:1.08;color:var(--forest);letter-spacing:-.01em}
+.lead{color:var(--muted);max-width:60ch;margin:0}
+section{padding-block:clamp(56px,8vw,96px)}
+.head{display:grid;gap:10px;margin-bottom:clamp(26px,4vw,40px)}
+:focus-visible{outline:2px solid var(--copper);outline-offset:3px}
+
+/* topo */
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:color-mix(in srgb,var(--paper) 90%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.bar .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:10px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.logo img{height:34px;width:auto}
+.logo b{font-family:var(--f-display);font-size:1.3rem;color:var(--forest);font-weight:800}
+.bar nav{display:flex;gap:clamp(10px,2.2vw,26px);font-weight:600;font-size:.9rem}
+.bar nav a{text-decoration:none;color:var(--muted)}
+.bar nav a:hover{color:var(--forest)}
+@media (max-width:760px){.bar nav{display:none}}
+
+/* hero */
+.hero{padding-block:clamp(28px,5vw,64px) clamp(40px,6vw,80px)}
+.hero .wrap{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(28px,5vw,64px);align-items:center}
+@media (max-width:880px){.hero .wrap{grid-template-columns:1fr}}
+.hero .wrap>*{min-width:0}
+.brandmark{width:min(440px,100%)}
+.hero h1{font-family:var(--f-display);font-weight:700;font-size:clamp(1.45rem,2.7vw,2.05rem);line-height:1.22;color:var(--forest);margin-top:22px;max-width:30ch}
+.hero p.lead{margin-top:16px}
+.meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+.tag{font-family:var(--f-mono);font-size:.76rem;padding:6px 11px;border-radius:6px;background:var(--paper-2);border:1px solid var(--line);color:var(--forest)}
+.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+.btn{font-weight:700;font-size:.92rem;padding:12px 20px;border-radius:10px;text-decoration:none;border:1.5px solid var(--forest);color:var(--forest);background:transparent;cursor:pointer;font-family:var(--f-body)}
+.btn.fill{background:var(--forest);color:var(--paper)}
+.btn:hover{background:var(--moss);border-color:var(--moss);color:var(--paper)}
+.photo{position:relative}
+.photo .frame{border-radius:220px 220px 22px 22px;overflow:hidden;aspect-ratio:4/5;background:var(--paper-2);box-shadow:0 30px 60px -30px rgba(27,51,38,.55)}
+.photo .frame img{width:100%;height:100%;object-fit:cover;object-position:50% 38%}
+.readout{position:absolute;left:-18px;bottom:28px;background:var(--forest);color:var(--paper);border-radius:14px;padding:14px 16px;font-family:var(--f-mono);font-size:.76rem;display:grid;gap:6px;min-width:200px;box-shadow:0 18px 30px -16px rgba(0,0,0,.5)}
+@media (max-width:880px){.readout{left:10px}}
+.readout .t{color:var(--lichen);letter-spacing:.12em;text-transform:uppercase;font-size:.68rem}
+.readout .row{display:flex;justify-content:space-between;gap:14px}
+.readout .row span:last-child{color:#cfe0b8}
+.cap{font-family:var(--f-mono);font-size:.74rem;color:var(--muted);margin-top:10px;text-align:right}
+
+/* fluxo */
+.flow{background:var(--forest);color:var(--paper)}
+.flow h2{color:var(--paper)}
+.flow .lead{color:#c3d1bd}
+.flow .kicker{color:var(--lichen)}
+.steps{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;counter-reset:s}
+@media (max-width:980px){.steps{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:480px){.steps{grid-template-columns:1fr}}
+.step{border:1px solid rgba(245,242,232,.18);border-radius:14px;padding:18px;display:grid;gap:8px;align-content:start;background:rgba(255,255,255,.03)}
+.step::before{counter-increment:s;content:"0" counter(s);font-family:var(--f-mono);color:var(--lichen);font-size:.8rem}
+.step b{font-family:var(--f-display);font-size:1.2rem;font-weight:700}
+.step p{margin:0;font-size:.92rem;color:#c3d1bd}
+.sensors{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:22px}
+@media (max-width:760px){.sensors{grid-template-columns:1fr}}
+.sensor{display:flex;gap:14px;align-items:center;border-top:1px dashed rgba(245,242,232,.28);padding-top:14px}
+.sensor code{font-family:var(--f-mono);background:var(--copper);color:#fff8ea;padding:5px 9px;border-radius:6px;font-size:.82rem;white-space:nowrap}
+.sensor span{font-size:.92rem;color:#dfe8d6}
+
+/* diário */
+.months{display:flex;gap:6px;overflow-x:auto;padding-bottom:10px;scrollbar-width:thin;margin-bottom:22px}
+.m{flex:0 0 auto;min-width:74px;border:1px solid var(--line);background:var(--card);border-radius:10px;padding:8px 10px 10px;cursor:pointer;font-family:var(--f-body);color:var(--ink);text-align:left;display:grid;gap:4px}
+.m small{font-family:var(--f-mono);font-size:.66rem;color:var(--muted);letter-spacing:.06em}
+.m b{font-size:.95rem}
+.m i{display:flex;gap:3px;min-height:7px}
+.m i em{width:7px;height:7px;border-radius:50%;background:var(--who,#999)}
+.m[aria-pressed="true"]{background:var(--forest);border-color:var(--forest);color:var(--paper)}
+.m[aria-pressed="true"] small{color:#c3d1bd}
+.m:hover:not([aria-pressed="true"]){border-color:var(--moss)}
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px;align-items:center}
+.chip{font-family:var(--f-body);font-weight:600;font-size:.84rem;padding:7px 13px;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--muted);cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--lichen);border-color:#bfc45a;color:var(--forest)}
+.legend{margin-left:auto;display:flex;gap:14px;font-size:.82rem;color:var(--muted)}
+.legend span::before{content:"";display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--who);margin-right:6px}
+.g{--who:#4c6a43}.v{--who:#a8702e}.t{--who:#b0457a}.x{--who:#7b8a7e}
+.feed{display:grid;gap:0;border-left:2px solid var(--line);margin-left:8px}
+.e{position:relative;padding:4px 0 26px 26px;display:grid;grid-template-columns:120px 1fr;gap:6px 20px}
+@media (max-width:640px){.e{grid-template-columns:1fr}}
+.e::before{content:"";position:absolute;left:-8px;top:10px;width:14px;height:14px;border-radius:50%;background:var(--paper);border:3px solid var(--who)}
+.e>*{min-width:0}
+.e time{font-family:var(--f-mono);font-size:.82rem;color:var(--forest);font-weight:600;padding-top:6px}
+.e time small{display:block;color:var(--muted);font-weight:400}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px;display:grid;gap:8px}
+.card h4{font-family:var(--f-display);font-size:1.2rem;font-weight:700;color:var(--forest);line-height:1.25}
+.card p{margin:0;color:#334237;font-size:.96rem}
+.who{font-size:.74rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--who)}
+.card.letter{background:#fbf3f6;border-color:#ecd2de}
+.card.letter p{font-family:var(--f-display);font-style:italic;font-weight:500;font-size:1.02rem}
+.data{display:flex;flex-wrap:wrap;gap:6px}
+.data span{font-family:var(--f-mono);font-size:.76rem;background:var(--paper-2);border-radius:6px;padding:4px 8px;color:var(--forest)}
+.note{justify-self:start;background:#efe7a2;color:#3c3a14;font-size:.86rem;padding:8px 12px;border-radius:3px;transform:rotate(-1deg);box-shadow:0 4px 10px rgba(0,0,0,.12)}
+.page-link{justify-self:start;font-family:var(--f-mono);font-size:.76rem;background:none;border:0;padding:0;color:var(--copper);cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+.empty{color:var(--muted);padding:20px 0}
+
+/* laboratório */
+.lab{background:var(--paper-2);border-block:1px solid var(--line)}
+.lab-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+@media (max-width:880px){.lab-grid{grid-template-columns:1fr}}
+.lab-grid>*{min-width:0}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:clamp(18px,3vw,26px);display:grid;gap:14px;align-content:start}
+.panel h3{font-family:var(--f-display);font-size:1.35rem;color:var(--forest)}
+.panel p{margin:0;color:var(--muted);font-size:.94rem}
+.swatches{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.sw{border-radius:14px;overflow:hidden;border:1px solid var(--line)}
+.sw div{height:120px}
+.sw footer{padding:10px 12px;display:grid;gap:2px;background:var(--card)}
+.sw footer b{font-family:var(--f-mono);font-size:1rem;color:var(--forest)}
+.sw footer span{font-size:.84rem;color:var(--muted)}
+.rgb{width:100%;border-collapse:collapse;font-family:var(--f-mono);font-size:.82rem;font-variant-numeric:tabular-nums}
+.rgb th,.rgb td{padding:7px 8px;border-bottom:1px solid var(--line);text-align:right}
+.rgb th:first-child,.rgb td:first-child{text-align:left}
+.rgb th{font-weight:600;color:var(--muted);font-size:.74rem;text-transform:uppercase;letter-spacing:.06em}
+.chart svg{width:100%;height:auto;display:block}
+.chart text{font-family:var(--f-mono);font-size:11px;fill:var(--muted)}
+.chart .v{fill:var(--forest);font-weight:600}
+.key{display:flex;gap:16px;font-size:.84rem;color:var(--muted)}
+.key span::before{content:"";display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:6px;vertical-align:-1px;background:var(--c)}
+.species{display:flex;gap:14px;align-items:center;border-top:1px dashed var(--line);padding-top:14px}
+.species i{font-family:var(--f-display);font-style:italic;color:var(--forest);font-size:1.05rem}
+
+/* galeria */
+.tabs{display:flex;gap:8px;margin-bottom:20px}
+.shots{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px}
+.shot{position:relative;border:0;padding:0;background:var(--paper-2);border-radius:14px;overflow:hidden;cursor:zoom-in;aspect-ratio:3/4}
+.shot img{width:100%;height:100%;object-fit:cover;transition:transform .35s}
+.shot:hover img{transform:scale(1.04)}
+.shot.wide{grid-column:span 2;aspect-ratio:auto}
+@media (max-width:520px){.shot.wide{grid-column:span 1}}
+.shot.logo-tile{background:#fff}
+.shot.logo-tile img{object-fit:contain;padding:18px}
+.shot span{position:absolute;left:10px;bottom:10px;right:10px;text-align:left;font-size:.8rem;font-weight:600;background:rgba(255,253,246,.92);color:var(--forest);padding:6px 9px;border-radius:8px}
+.shots.pages{grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}
+.shots.pages .shot{aspect-ratio:827/1170;background:#fff;border:1px solid var(--line)}
+.shots.pages .shot span{font-family:var(--f-mono);font-size:.7rem;font-weight:400}
+
+/* equipe */
+.team{display:grid;grid-template-columns:.8fr 1.2fr;gap:clamp(24px,4vw,48px);align-items:center}
+@media (max-width:820px){.team{grid-template-columns:1fr}}
+.team>*{min-width:0}
+.team-photo{margin:0;max-width:420px}
+.team-photo img{width:100%;height:auto;border-radius:18px;box-shadow:0 26px 50px -28px rgba(27,51,38,.6)}
+.team-photo figcaption{font-size:.84rem;color:var(--muted);margin-top:10px}
+.resume{background:var(--forest);color:var(--paper)}
+.resume h2{color:var(--paper)}
+.resume .kicker{color:var(--lichen)}
+.resume-grid{display:grid;align-items:start;grid-template-columns:.8fr 1.2fr;gap:clamp(24px,4vw,56px)}
+@media (max-width:820px){.resume-grid{grid-template-columns:1fr}}
+.resume-grid>*{min-width:0}
+.resume-text p{margin:0 0 14px;color:#dbe5d3;max-width:62ch;font-size:1.04rem}
+.people{display:grid;gap:0}
+.person{display:grid;grid-template-columns:1fr auto;gap:4px 16px;padding:16px 0;border-bottom:1px solid var(--line);align-items:baseline}
+.person b{font-family:var(--f-display);font-size:1.25rem;color:var(--forest)}
+.person span{font-family:var(--f-mono);font-size:.76rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+.group{display:flex;gap:16px;align-items:center;margin-top:24px;padding:16px;border:1px solid var(--line);border-radius:14px;background:var(--card)}
+.group img{width:72px;height:72px;object-fit:contain}
+.group p{margin:0;font-size:.92rem;color:var(--muted)}
+.group b{color:var(--forest);display:block}
+footer.site{border-top:1px solid var(--line);padding-block:28px;font-size:.86rem;color:var(--muted)}
+footer.site .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
+
+/* lightbox */
+.lb{position:fixed;inset:0;z-index:80;background:rgba(15,26,19,.95);display:grid;grid-template-rows:1fr auto;padding:max(16px,env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) max(16px,env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
+.lb[hidden]{display:none}
+.lb-stage{min-height:0;display:grid;place-items:center}
+.lb img{max-height:100%;max-width:100%;object-fit:contain;border-radius:8px;background:#fff}
+.lb-bar{display:flex;justify-content:space-between;align-items:center;gap:12px;padding-top:12px;color:var(--paper);font-size:.9rem}
+.lb-bar .ctl{display:flex;gap:8px}
+.lb .btn{border-color:#8ea58a;color:var(--paper)}
+</style>
+</head>
+<body>
+
+
+<header class="bar">
+  <div class="wrap">
+    <a class="logo" href="#inicio"><img src="img/ecobreath-icone.png" alt=""><b>EcoBreath</b></a>
+    <nav aria-label="Seções">
+      <a href="#resumo">Resumo</a><a href="#diario">Diário</a><a href="#galeria">Galeria</a><a href="#equipe">Equipe</a>
+    </nav>
+  </div>
+</header>
+
+<main id="inicio">
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <img class="brandmark" src="img/ecobreath.png" alt="EcoBreath — Tecnologia e vida ambiental">
+      <h1>Análise dos bioindicadores da qualidade do ar por meio do desenvolvimento de um protótipo utilizando Arduino e robótica</h1>
+      <p class="lead">Diário de bordo do projeto de Iniciação Científica do GEMAT, na Escola SESI de Vitória da Conquista (BA). Líquens mudam de cor quando expostos a poluentes; o protótipo lê essa cor e mostra o resultado em um site.</p>
+      <div class="meta">
+        <span class="tag">Jul 2025 → Out 2026</span>
+        <span class="tag" id="countTag">— registros</span>
+        <span class="tag">ODS 3 · 11 · 13</span>
+      </div>
+      <div class="actions">
+        <a class="btn fill" href="#diario">Ler o diário</a>
+        <a class="btn" href="#galeria">Ver o caderno</a>
+      </div>
+    </div>
+    <div class="photo">
+      <div class="frame"><img src="img/dupla.jpg" alt="Vitória e Gabriel no estande do projeto na Mostra SESI STEAM, com o pôster e o protótipo"></div>
+      <p class="cap">Mostra SESI STEAM · outubro de 2026</p>
+    </div>
+  </div>
+</section>
+
+<section class="resume" id="resumo">
+  <div class="wrap resume-grid">
+    <div class="head" style="margin:0"><span class="kicker">Resumo do projeto</span><h2>Sobre o EcoBreath</h2></div>
+    <div class="resume-text">
+      <p>O EcoBreath nasceu da vontade de criar um protótipo que ajudasse as pessoas a conhecer a qualidade do ar do lugar onde estão. A ideia começou em 2025, com Gabriel e Vitória, dentro do GEMAT, grupo de Iniciação Científica da Escola SESI de Vitória da Conquista.</p>
+      <p>A pesquisa usa os líquens como bioindicadores: eles mudam de cor quando expostos a poluentes. Unindo Biologia, Química, robótica e Arduino, o grupo busca uma forma acessível de monitorar o ar e de mostrar os resultados ao público por meio de um site.</p>
+      <p>Ao longo do caminho vieram o plano de pesquisa, duas bancas, a fase de laboratório e as inscrições em feiras como FEMIC, FENIC e FEBRAT, além da apresentação na Mostra SESI STEAM.</p>
+    </div>
+  </div>
+</section>
+
+<section id="diario">
+  <div class="wrap">
+    <div class="head"><span class="kicker">Diário de bordo</span><h2>Mês a mês</h2><p class="lead">Escolha um mês na régua ou filtre por etapa. Cada registro traz um resumo do que foi escrito no caderno.</p></div>
+    <div class="months" id="months" role="group" aria-label="Meses"></div>
+    <div class="filters" id="filters" role="group" aria-label="Etapas">
+      <button class="chip" id="f-todas" data-f="todas" aria-pressed="true">Todas as etapas</button>
+      <button class="chip" id="f-plano" data-f="plano" aria-pressed="false">Plano de pesquisa</button>
+      <button class="chip" id="f-banca" data-f="banca" aria-pressed="false">Bancas</button>
+      <button class="chip" id="f-estudo" data-f="estudo" aria-pressed="false">Estudos</button>
+      <button class="chip" id="f-lab" data-f="lab" aria-pressed="false">Laboratório</button>
+      <button class="chip" id="f-feiras" data-f="feiras" aria-pressed="false">Feiras</button>
+      <div class="legend"><span class="g">Gabriel</span><span class="v">Vitória</span><span class="t">Taiane Araújo - Orientadora</span></div>
+    </div>
+    <h3 id="feedTitle" class="kicker" style="margin:18px 0 14px;color:var(--forest)"></h3>
+    <div class="feed" id="feed"></div>
+  </div>
+</section>
+
+<section id="galeria">
+  <div class="wrap">
+    <div class="head"><span class="kicker">Galeria</span><h2>O caderno digitalizado</h2><p class="lead">As 46 páginas do diário de bordo. Clique para ampliar e passar as páginas.</p></div>
+    <div class="shots" id="shots"></div>
+  </div>
+</section>
+
+<section id="equipe">
+  <div class="wrap team">
+    <figure class="team-photo"><img src="img/equipe.jpg" alt="Vitória, a orientadora Taiane Araújo e Gabriel no estande da Mostra SESI STEAM"><figcaption>Vitória, Taiane Araújo e Gabriel · Mostra SESI STEAM</figcaption></figure>
+    <div>
+      <div class="head" style="margin-bottom:10px"><span class="kicker">Equipe</span><h2>Quem faz o EcoBreath</h2></div>
+      <div class="people">
+        <div class="person"><b>Gabriel Araújo Santana</b><span>Pesquisador</span></div>
+        <div class="person"><b>Vitória Gabriely Neves dos Santos</b><span>Pesquisadora</span></div>
+        <div class="person"><b>Taiane Araújo</b><span>Orientadora</span></div>
+        <div class="person"><b>Winne</b><span>Coorientadora</span></div>
+      </div>
+      <div class="group"><img src="img/gemat.png" alt="Logo do GEMAT"><p><b>GEMAT</b>Grupo de Pesquisa e Estudos em Matemática e suas Tecnologias</p></div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="site"><div class="wrap"><span>EcoBreath · Tecnologia e vida ambiental</span><span>GEMAT · Escola SESI · Vitória da Conquista, BA</span></div></footer>
+
+<div class="lb" id="lb" hidden role="dialog" aria-modal="true" aria-label="Imagem ampliada">
+  <div class="lb-stage"><img id="lbImg" alt=""></div>
+  <div class="lb-bar"><span id="lbCap"></span><div class="ctl"><button class="btn" id="lbPrev" aria-label="Anterior">←</button><button class="btn" id="lbNext" aria-label="Próxima">→</button><button class="btn fill" id="lbClose">Fechar</button></div></div>
+</div>
+
+<script>
+/* [data AAAA-MM-DD, autor g|v|t|x, etapa, título, texto, dados[], post-it, página do diário] */
+const E=[
+["2025-07-22","x","plano","A escolha do tema","A orientadora sugeriu três áreas: Matemática, Tecnologia ou Robótica. As primeiras ideias foram aplicativos para discalculia e para pequenos agricultores, mas criar um app exigiria aprender programação do zero.",[],"",20],
+["2025-08-01","x","plano","Do solo para o ar","A ideia de medir a qualidade do solo virou um protótipo para verificar a qualidade do ar do local, um tema que ajuda as pessoas em geral. Em meados de agosto, Vitória se juntou ao projeto.",[],"",21],
+["2025-09-01","x","plano","Primeira versão do plano","Tema, objetivos, questão de pesquisa, justificativa e referencial teórico definidos.",[],"",22],
+["2025-10-01","x","banca","Pesquisa quantitativa e experimental","O grupo definiu a metodologia, oficializou o trio com Vitória e apresentou a primeira banca. Fomos bastante elogiados pela apresentação.",[],"",22],
+["2025-11-01","x","estudo","Fundamentação teórica","Estudos sobre poluentes atmosféricos, bioindicadores e o funcionamento do Arduino e do sensor MQ-135.",[],"",22],
+["2026-03-17","g","estudo","A tese da orientadora","Resumo em tópicos da tese de Taiane: \"Saberes Matemáticos (des)velados com a Robótica Educacional na EPJAI: um olhar freiriano\".",[],"",1],
+["2026-03-24","v","banca","Apresentação dos temas","Apresentamos o trabalho, recebemos as dicas de Taiane e gravamos o vídeo de divulgação das ICs.",[],"",2],
+["2026-03-31","g","estudo","Palavras-chave e artigos da CAPES","Qualidade do ar, bioindicadores, tecnologia e poluentes atmosféricos. A busca \"qualidade do ar\" and \"bioindicadores\" no banco da CAPES trouxe 23 resultados; quatro artigos foram escolhidos.",["Romanoski 2022","Silva 2019","Santos 2021","Souza 2023"],"Colocar na metodologia do projeto",4],
+["2026-04-06","g","estudo","O que os líquens sentem","Dióxido de enxofre muda a cor do líquen, compostos nitrogenados alteram o pH da superfície e o material particulado entope os poros. Também buscamos a definição de qualidade do ar do CONAMA.",["SO₂","NO₂","PM2.5 · PM10"],"",3],
+["2026-04-07","g","plano","Uma coorientadora de Biologia","Mostramos à Taiane os artigos e o protótipo pensado. Surgiu a ideia de chamar a professora Winne, que gostou da ideia e aceitou ser coorientadora.",["MQ-136","MQ-135","PMS5003"],"",6],
+["2026-04-12","g","plano","Avanços no plano","Entraram as ODS 3, 11 e 13. A questão de pesquisa passou a ser como essa integração pode melhorar a qualidade do ar no Brasil. A fundamentação foi dividida em seis subtópicos.",["ODS 3","ODS 11","ODS 13"],"",7],
+["2026-04-12","v","estudo","Curso Ápice de estatística","Anotações sobre população, amostra, tipos de amostragem e tipos de variáveis.",[],"",10],
+["2026-04-21","v","estudo","Continuação do curso","Frequência absoluta, acumulada e percentual; média, moda e mediana; amplitude, percentil e quartil.",[],"",13],
+["2026-04-27","t","plano","Considerações da orientadora","\"Estou feliz com o andamento do trio, que está em direção à escrita do projeto e ansiosa para a banca de maio.\"",[],"",9],
+["2026-04-28","v","banca","Preparação dos resumos","Taiane leu todos os diários e sugeriu melhorias. Ajustamos o resumo para a banca de 19 de maio.",[],"",10],
+["2026-05-14","g","banca","Resumo enviado","O resumo foi para Taiane, que respondeu no mesmo dia: o título não estava claro e as palavras-chave precisavam mudar.",[],"",15],
+["2026-05-17","g","banca","Últimos ajustes","Feriado dedicado ao resumo, ao slide e à forma de apresentar.",[],"",16],
+["2026-05-19","g","banca","Segunda banca do ano","Avaliação das professoras Nádila e Winne e da coordenadora Débora: escrever de forma impessoal, detalhar a metodologia, pesquisar protótipos parecidos e definir o papel dos líquens.",["15 min de apresentação","15 min de banca"],"",17],
+["2026-05-26","v","banca","Banca da Biotech","Assistimos à banca de outra IC e anotamos as considerações de cada grupo.",[],"",18],
+["2026-06-16","v","feiras","Antes do recesso","Lanche coletivo e organização das feiras. O resumo para o ENEI foi aprovado para os anais, mas o grupo preferiu deixar para outro momento.",["ENEI"],"",26],
+["2026-07-07","g","lab","Líquen e Arduino","Pesquisa com IA sobre como usar líquens em um sistema que mede poluentes do ar com Arduino.",[],"",22],
+["2026-07-08","t","plano","Carta da orientadora","\"O texto está bem escrito, porém faltando algumas referências, delimitações na metodologia e melhor associação dos líquens.\" O grupo está escrevendo o resumo da FEMIC.",[],"",24],
+["2026-07-14","g","lab","Decisão do laboratório","Leitura da dissertação de Roilane Costa e definição da fase de laboratório: trabalhar com enxofre para estudar a mudança de coloração dos líquens.",[],"",27],
+["2026-07-15","g","plano","Metodologia","Tipo de pesquisa, protótipo, materiais e métodos, robótica e tecnologia, química e biologia.",[],"",29],
+["2026-07-16","v","lab","Primeiro dia de laboratório","Testamos o espectrofotômetro com fenolftaleína e água sanitária e observamos o líquen no microscópio. A solubilização gerou um líquido esverdeado.",["0,253","0,225","0,300","1,500"],"",30],
+["2026-08-11","v","lab","Queima teste de enxofre","O enxofre precisa derreter antes de pegar fogo. Um improviso com dois béqueres manteve a fumaça perto do líquen. Descobrimos que a medição certa é no espectro de 420 nm.",["10 g de enxofre"],"",33],
+["2026-08-12","v","lab","Análise das amostras","Medições no espectro de 420 nm com ajuda de um colega da Biotech.",["Sem: 1,036","Com: 1,772"],"",35],
+["2026-08-13","v","lab","Queima mais eficiente","Enxofre derretido na lamparina, chama azul intensa e uma caixa de acrílico para segurar a fumaça.",["Sem: 1,064","Com: 1,537"],"",36],
+["2026-08-18","v","lab","Fim da fase de testes","O líquen absorveu a fumaça durante um dia inteiro. A diferença foi pequena, então a metodologia será aprimorada para o teste final.",[],"",37],
+["2026-08-25","g","lab","Cor no site","A câmera ESP32 custava cerca de R$ 140; o sensor de cor TCS34725 encaixou no projeto. Com a fórmula do grupo, o líquen natural virou #FFFF5D e o poluído #FFFFAC. Daí surgiu a ideia de criar um site para o usuário ver as medidas.",["TCS34725","#FFFF5D","#FFFFAC"],"Como temos certeza que são líquens?",38],
+["2026-09-17","t","feiras","Rumo às feiras","\"Parabenizo Gabriel e Vitória pelos avanços.\" Resumo enviado à FEMIC, artigo da FENIC e resumo da FEBRAT em finalização; Vitória no laboratório e Gabriel desenvolvendo o site.",["FEMIC","FENIC","FEBRAT"],"",44],
+["2026-10-12","v","lab","Plano da última testagem","O LabDisk substituiu o espectrofotômetro. Quatro etapas: coleta, queima controlada, extração da pigmentação e análise RGB para calibrar a câmera do protótipo.",["25 g de enxofre","1 g de líquen","pH 8,0","3000 rpm"],"",45],
+["2026-10-23","x","feiras","Mostra SESI STEAM","Protótipo e pôster apresentados no estande da escola, nos dias 23 e 24 de outubro.",[],"",0]
+];
+const WHO={g:"Gabriel",v:"Vitória",t:"Taiane Araújo - Orientadora",x:"Grupo"};
+const MN=["jan","fev","mar","abr","mai","jun","jul","ago","set","out","nov","dez"];
+const MF=["Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"];
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const retro=e=>e[1]==="x"&&e[0]<"2026";
+const fmt=e=>{const[y,m,d]=e[0].split("-");return retro(e)?`${MN[+m-1]} ${y}`:`${d}/${m}/${y}`};
+document.getElementById("countTag").textContent=E.length+" registros";
+
+/* régua de meses */
+const months=[];for(let y=2025,m=7;y<2026||(y===2026&&m<=10);){months.push(`${y}-${String(m).padStart(2,"0")}`);m++;if(m>12){m=1;y++}}
+const mEl=document.getElementById("months");
+mEl.innerHTML=`<button class="m" id="m-all" data-k="all" aria-pressed="true"><small>tudo</small><b>Todos</b><i></i></button>`+months.map(k=>{
+  const list=E.filter(e=>e[0].startsWith(k)),[y,m]=k.split("-");
+  return `<button class="m" id="m-${k}" data-k="${k}" aria-pressed="false" ${list.length?"":"disabled style='opacity:.45;cursor:default'"}><small>${y}</small><b>${MN[+m-1]}</b><i>${list.map(e=>`<em class="${e[1]}"></em>`).join("")}</i></button>`}).join("");
+let curM="all",curF="todas";
+function render(){
+  const list=E.filter(e=>(curM==="all"||e[0].startsWith(curM))&&(curF==="todas"||e[2]===curF));
+  const [y,m]=curM.split("-");
+  document.getElementById("feedTitle").textContent=(curM==="all"?"Todo o diário":`${MF[+m-1]} de ${y}`)+` · ${list.length} ${list.length===1?"registro":"registros"}`;
+  document.getElementById("feed").innerHTML=list.length?list.map(e=>`
+    <article class="e ${e[1]}"><time datetime="${e[0]}">${fmt(e)}<small>${e[2]==="lab"?"laboratório":e[2]==="plano"?"plano":e[2]==="banca"?"banca":e[2]==="feiras"?"feiras":"estudos"}</small></time>
+    <div class="card${e[1]==="t"?" letter":""}"><span class="who">${WHO[e[1]]}</span><h4>${esc(e[3])}</h4><p>${esc(e[4])}</p>
+    ${e[5].length?`<div class="data">${e[5].map(d=>`<span>${esc(d)}</span>`).join("")}</div>`:""}
+    ${e[6]?`<div class="note">${esc(e[6])}</div>`:""}
+    ${e[7]?`<button class="page-link" data-p="${e[7]}">Ver página ${e[7]} do caderno →</button>`:""}</div></article>`).join(""):`<p class="empty">Nenhum registro dessa etapa neste mês.</p>`;
+  document.querySelectorAll("#feed .page-link").forEach(b=>b.onclick=()=>openLb(PAGES,+b.dataset.p-1));
+  mEl.querySelectorAll(".m").forEach(b=>b.setAttribute("aria-pressed",b.dataset.k===curM));
+  document.querySelectorAll("#filters .chip").forEach(b=>b.setAttribute("aria-pressed",b.dataset.f===curF));
+}
+mEl.addEventListener("click",ev=>{const b=ev.target.closest(".m");if(b&&!b.disabled){curM=b.dataset.k;render()}});
+document.getElementById("filters").addEventListener("click",ev=>{const b=ev.target.closest(".chip");if(b){curF=b.dataset.f;render()}});
+
+/* galeria */
+const PHOTOS=[
+ {src:"img/dupla.jpg",cap:"Gabriel e Vitória na Mostra SESI STEAM"},
+ {src:"img/equipe.jpg",cap:"Vitória, Taiane e Gabriel"},
+ {src:"img/ecobreath.png",cap:"Logo do EcoBreath",logo:1,wide:1},
+ {src:"img/gemat.png",cap:"GEMAT",logo:1}
+];
+const PAGES=Array.from({length:46},(_,i)=>({src:`diario/p${String(i+1).padStart(2,"0")}.jpg`,cap:`Página ${i+1} do diário`}));
+const shots=document.getElementById("shots");
+function gallery(g){
+  const list=g==="paginas"?PAGES:PHOTOS;
+  shots.className="shots"+(g==="paginas"?" pages":"");
+  shots.innerHTML=list.map((p,i)=>`<button class="shot${p.logo?" logo-tile":""}${p.wide?" wide":""}" data-i="${i}" aria-label="Ampliar: ${esc(p.cap)}"><img src="${p.src}" alt="${esc(p.cap)}" loading="lazy"><span>${esc(p.cap)}</span></button>`).join("");
+  shots.querySelectorAll(".shot").forEach(b=>b.onclick=()=>openLb(list,+b.dataset.i));
+  document.querySelectorAll(".tabs .chip").forEach(b=>b.setAttribute("aria-pressed",b.dataset.g===g));
+}
+
+
+/* lightbox */
+const lb=document.getElementById("lb"),lbImg=document.getElementById("lbImg"),lbCap=document.getElementById("lbCap");
+let L=[],I=0,back=null;
+const draw=()=>{lbImg.src=L[I].src;lbImg.alt=L[I].cap;lbCap.textContent=`${L[I].cap} · ${I+1}/${L.length}`};
+function openLb(list,i){L=list;I=Math.max(0,i);back=document.activeElement;draw();lb.hidden=false;document.getElementById("lbClose").focus()}
+const close=()=>{lb.hidden=true;back&&back.focus()},go=d=>{I=(I+d+L.length)%L.length;draw()};
+document.getElementById("lbClose").onclick=close;document.getElementById("lbPrev").onclick=()=>go(-1);document.getElementById("lbNext").onclick=()=>go(1);
+lb.addEventListener("click",e=>{if(e.target===lb||e.target.classList.contains("lb-stage"))close()});
+document.addEventListener("keydown",e=>{if(lb.hidden)return;if(e.key==="Escape")close();if(e.key==="ArrowRight")go(1);if(e.key==="ArrowLeft")go(-1)});
+
+render();gallery("paginas");
+</script>
+
+</body>
+</html>
