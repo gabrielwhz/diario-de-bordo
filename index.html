@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>EcoBreath</title>
+<title>Diário de Bordo EcoBreath</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,800&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
@@ -49,6 +49,7 @@ section{padding-block:clamp(56px,8vw,96px)}
 .logo{display:flex;align-items:center;gap:10px;text-decoration:none}
 .logo img{height:34px;width:auto}
 .logo b{font-family:var(--f-display);font-size:1.3rem;color:var(--forest);font-weight:800}
+.logo-sub{font-family:var(--f-mono);font-size:.68rem;color:var(--copper);letter-spacing:.1em;text-transform:uppercase;padding-left:10px;border-left:1px solid var(--line)}
 .bar nav{display:flex;gap:clamp(10px,2.2vw,26px);font-weight:600;font-size:.9rem}
 .bar nav a{text-decoration:none;color:var(--muted)}
 .bar nav a:hover{color:var(--forest)}
@@ -59,7 +60,7 @@ section{padding-block:clamp(56px,8vw,96px)}
 .hero .wrap{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(28px,5vw,64px);align-items:center}
 @media (max-width:880px){.hero .wrap{grid-template-columns:1fr}}
 .hero .wrap>*{min-width:0}
-.brandmark{width:min(440px,100%)}
+.hero-big{font-family:var(--f-display);font-weight:800;font-size:clamp(3rem,8vw,5.6rem);line-height:.95;color:var(--forest);margin:10px 0 0;letter-spacing:-.02em}
 .hero h1{font-family:var(--f-display);font-weight:700;font-size:clamp(1.45rem,2.7vw,2.05rem);line-height:1.22;color:var(--forest);margin-top:22px;max-width:30ch}
 .hero p.lead{margin-top:16px}
 .meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
@@ -97,39 +98,47 @@ section{padding-block:clamp(56px,8vw,96px)}
 .sensor span{font-size:.92rem;color:#dfe8d6}
 
 /* diário */
-.months{display:flex;gap:6px;overflow-x:auto;padding-bottom:10px;scrollbar-width:thin;margin-bottom:22px}
-.m{flex:0 0 auto;min-width:74px;border:1px solid var(--line);background:var(--card);border-radius:10px;padding:8px 10px 10px;cursor:pointer;font-family:var(--f-body);color:var(--ink);text-align:left;display:grid;gap:4px}
-.m small{font-family:var(--f-mono);font-size:.66rem;color:var(--muted);letter-spacing:.06em}
-.m b{font-size:.95rem}
-.m i{display:flex;gap:3px;min-height:7px}
-.m i em{width:7px;height:7px;border-radius:50%;background:var(--who,#999)}
-.m[aria-pressed="true"]{background:var(--forest);border-color:var(--forest);color:var(--paper)}
-.m[aria-pressed="true"] small{color:#c3d1bd}
-.m:hover:not([aria-pressed="true"]){border-color:var(--moss)}
-.filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px;align-items:center}
-.chip{font-family:var(--f-body);font-weight:600;font-size:.84rem;padding:7px 13px;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--muted);cursor:pointer}
-.chip[aria-pressed="true"]{background:var(--lichen);border-color:#bfc45a;color:var(--forest)}
-.legend{margin-left:auto;display:flex;gap:14px;font-size:.82rem;color:var(--muted)}
-.legend span::before{content:"";display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--who);margin-right:6px}
-.g{--who:#4c6a43}.v{--who:#a8702e}.t{--who:#b0457a}.x{--who:#7b8a7e}
-.feed{display:grid;gap:0;border-left:2px solid var(--line);margin-left:8px}
-.e{position:relative;padding:4px 0 26px 26px;display:grid;grid-template-columns:120px 1fr;gap:6px 20px}
-@media (max-width:640px){.e{grid-template-columns:1fr}}
-.e::before{content:"";position:absolute;left:-8px;top:10px;width:14px;height:14px;border-radius:50%;background:var(--paper);border:3px solid var(--who)}
+.g{--who:#2e6e8e}.v{--who:#a8702e}.t{--who:#b0457a}.b{--who:#4f8a3c}.x{--who:#7b8a7e}
+.cal-top{display:flex;flex-wrap:wrap;gap:14px 24px;align-items:flex-start;justify-content:space-between;margin-bottom:22px}
+.legend{display:flex;flex-wrap:wrap;gap:8px 16px;font-size:.86rem;color:var(--muted)}
+.legend span::before{content:"";display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--who);margin-right:7px;vertical-align:-1px}
+.obs{display:flex;gap:12px;align-items:flex-start;max-width:480px;background:#eef4e6;border:1px solid #cfe0bd;border-left:4px solid #4f8a3c;border-radius:10px;padding:12px 14px;font-size:.88rem;color:#2f4a27}
+.obs b{display:block;color:#2f5a22;font-size:.8rem;letter-spacing:.06em;text-transform:uppercase;margin-bottom:2px}
+.obs p{margin:0}
+.cal{display:grid;gap:10px;margin-bottom:6px}
+.yr{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.yr>b{font-family:var(--f-mono);font-size:.74rem;color:var(--muted);width:44px}
+.pill{font-family:var(--f-body);font-weight:700;font-size:.86rem;text-transform:capitalize;padding:7px 14px 6px;border-radius:999px;border:1px solid var(--line);background:var(--card);color:var(--forest);cursor:pointer;display:inline-flex;align-items:center;gap:7px}
+.pill small{font-family:var(--f-mono);font-size:.66rem;font-weight:600;color:var(--copper)}
+.pill:hover:not([aria-pressed="true"]){border-color:var(--moss)}
+.pill[aria-pressed="true"]{background:var(--forest);border-color:var(--forest);color:var(--paper)}
+.pill[aria-pressed="true"] small{color:var(--lichen)}
+.panel-m{margin-top:22px;background:var(--card);border:1px solid var(--line);border-radius:22px;padding:clamp(18px,3.4vw,34px);scroll-margin-top:80px}
+.pm-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:14px;border-bottom:1px solid var(--line);padding-bottom:18px;margin-bottom:22px}
+.pm-head h3{font-family:var(--f-display);font-size:clamp(1.8rem,4vw,2.6rem);color:var(--forest);line-height:1}
+.pm-head h3 small{font-family:var(--f-mono);font-size:.8rem;color:var(--muted);font-weight:400;margin-left:8px}
+.pm-hl{margin:10px 0 0;font-size:1.02rem;color:var(--moss);max-width:60ch}
+.pm-hl b{font-family:var(--f-mono);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--copper);display:block;margin-bottom:2px}
+.pm-nav{display:flex;gap:8px}
+.pm-nav button{width:42px;height:42px;border-radius:50%;border:1.5px solid var(--forest);background:transparent;color:var(--forest);font-size:1.1rem;cursor:pointer}
+.pm-nav button:hover:not(:disabled){background:var(--forest);color:var(--paper)}
+.pm-nav button:disabled{opacity:.3;cursor:default}
+.list{display:grid;gap:14px}
+.e{display:grid;grid-template-columns:64px 1fr;gap:16px;align-items:start}
 .e>*{min-width:0}
-.e time{font-family:var(--f-mono);font-size:.82rem;color:var(--forest);font-weight:600;padding-top:6px}
-.e time small{display:block;color:var(--muted);font-weight:400}
-.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px;display:grid;gap:8px}
-.card h4{font-family:var(--f-display);font-size:1.2rem;font-weight:700;color:var(--forest);line-height:1.25}
-.card p{margin:0;color:#334237;font-size:.96rem}
-.who{font-size:.74rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--who)}
-.card.letter{background:#fbf3f6;border-color:#ecd2de}
+.day{border-radius:14px;background:var(--who);color:#fff;text-align:center;padding:8px 0 7px;display:grid;line-height:1.05}
+.day b{font-family:var(--f-display);font-size:1.6rem}
+.day small{font-family:var(--f-mono);font-size:.62rem;text-transform:uppercase;letter-spacing:.06em;opacity:.9}
+.card{border:1px solid var(--line);border-left:4px solid var(--who);border-radius:12px;padding:14px 16px;display:grid;gap:7px;background:var(--paper)}
+.card h4{font-family:var(--f-display);font-size:1.15rem;font-weight:700;color:var(--forest);line-height:1.25}
+.card p{margin:0;color:#334237;font-size:.95rem}
+.who{font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--who)}
+.card.letter{background:#fbf3f6}
 .card.letter p{font-family:var(--f-display);font-style:italic;font-weight:500;font-size:1.02rem}
 .data{display:flex;flex-wrap:wrap;gap:6px}
-.data span{font-family:var(--f-mono);font-size:.76rem;background:var(--paper-2);border-radius:6px;padding:4px 8px;color:var(--forest)}
+.data span{font-family:var(--f-mono);font-size:.74rem;background:var(--paper-2);border-radius:6px;padding:4px 8px;color:var(--forest)}
 .note{justify-self:start;background:#efe7a2;color:#3c3a14;font-size:.86rem;padding:8px 12px;border-radius:3px;transform:rotate(-1deg);box-shadow:0 4px 10px rgba(0,0,0,.12)}
-.page-link{justify-self:start;font-family:var(--f-mono);font-size:.76rem;background:none;border:0;padding:0;color:var(--copper);cursor:pointer;text-decoration:underline;text-underline-offset:3px}
-.empty{color:var(--muted);padding:20px 0}
+.page-link{justify-self:start;font-family:var(--f-mono);font-size:.74rem;background:none;border:0;padding:0;color:var(--copper);cursor:pointer;text-decoration:underline;text-underline-offset:3px}
 
 /* laboratório */
 .lab{background:var(--paper-2);border-block:1px solid var(--line)}
@@ -212,7 +221,7 @@ footer.site .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:
 
 <header class="bar">
   <div class="wrap">
-    <a class="logo" href="#inicio"><img src="img/ecobreath-icone.png" alt=""><b>EcoBreath</b></a>
+    <a class="logo" href="#inicio"><b>Diário de Bordo</b><span class="logo-sub">GEMAT · IC SESI</span></a>
     <nav aria-label="Seções">
       <a href="#resumo">Resumo</a><a href="#diario">Diário</a><a href="#galeria">Galeria</a><a href="#equipe">Equipe</a>
     </nav>
@@ -223,12 +232,13 @@ footer.site .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:
 <section class="hero">
   <div class="wrap">
     <div>
-      <img class="brandmark" src="img/ecobreath.png" alt="EcoBreath — Tecnologia e vida ambiental">
+      <span class="kicker">Iniciação Científica · GEMAT · Escola SESI</span>
+      <p class="hero-big">Diário de Bordo</p>
       <h1>Análise dos bioindicadores da qualidade do ar por meio do desenvolvimento de um protótipo utilizando Arduino e robótica</h1>
-      <p class="lead">Diário de bordo do projeto de Iniciação Científica do GEMAT, na Escola SESI de Vitória da Conquista (BA). Líquens mudam de cor quando expostos a poluentes; o protótipo lê essa cor e mostra o resultado em um site.</p>
+      <p class="lead">O registro da nossa caminhada na Iniciação Científica, de julho de 2025 a outubro de 2026: ideias, bancas, estudos, dias de laboratório e feiras, contados por quem escreveu o caderno.</p>
       <div class="meta">
         <span class="tag">Jul 2025 → Out 2026</span>
-        <span class="tag" id="countTag">— registros</span>
+        <span class="tag" id="countTag">— anotações</span>
         <span class="tag">ODS 3 · 11 · 13</span>
       </div>
       <div class="actions">
@@ -245,9 +255,9 @@ footer.site .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:
 
 <section class="resume" id="resumo">
   <div class="wrap resume-grid">
-    <div class="head" style="margin:0"><span class="kicker">Resumo do projeto</span><h2>Sobre o EcoBreath</h2></div>
+    <div class="head" style="margin:0"><span class="kicker">Resumo do projeto</span><h2>Sobre o projeto</h2></div>
     <div class="resume-text">
-      <p>O EcoBreath nasceu da vontade de criar um protótipo que ajudasse as pessoas a conhecer a qualidade do ar do lugar onde estão. A ideia começou em 2025, com Gabriel e Vitória, dentro do GEMAT, grupo de Iniciação Científica da Escola SESI de Vitória da Conquista.</p>
+      <p>O projeto nasceu da vontade de criar um protótipo que ajudasse as pessoas a conhecer a qualidade do ar do lugar onde estão. A ideia começou em 2025, com Gabriel e Vitória, dentro da GEMAT, grupo de Iniciação Científica da Escola SESI de Vitória da Conquista.</p>
       <p>A pesquisa usa os líquens como bioindicadores: eles mudam de cor quando expostos a poluentes. Unindo Biologia, Química, robótica e Arduino, o grupo busca uma forma acessível de monitorar o ar e de mostrar os resultados ao público por meio de um site.</p>
       <p>Ao longo do caminho vieram o plano de pesquisa, duas bancas, a fase de laboratório e as inscrições em feiras como FEMIC, FENIC e FEBRAT, além da apresentação na Mostra SESI STEAM.</p>
     </div>
@@ -256,19 +266,19 @@ footer.site .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:
 
 <section id="diario">
   <div class="wrap">
-    <div class="head"><span class="kicker">Diário de bordo</span><h2>Mês a mês</h2><p class="lead">Escolha um mês na régua ou filtre por etapa. Cada registro traz um resumo do que foi escrito no caderno.</p></div>
-    <div class="months" id="months" role="group" aria-label="Meses"></div>
-    <div class="filters" id="filters" role="group" aria-label="Etapas">
-      <button class="chip" id="f-todas" data-f="todas" aria-pressed="true">Todas as etapas</button>
-      <button class="chip" id="f-plano" data-f="plano" aria-pressed="false">Plano de pesquisa</button>
-      <button class="chip" id="f-banca" data-f="banca" aria-pressed="false">Bancas</button>
-      <button class="chip" id="f-estudo" data-f="estudo" aria-pressed="false">Estudos</button>
-      <button class="chip" id="f-lab" data-f="lab" aria-pressed="false">Laboratório</button>
-      <button class="chip" id="f-feiras" data-f="feiras" aria-pressed="false">Feiras</button>
-      <div class="legend"><span class="g">Gabriel</span><span class="v">Vitória</span><span class="t">Taiane Araújo - Orientadora</span></div>
+    <div class="head"><span class="kicker">Diário de bordo</span><h2>Mês a mês</h2><p class="lead">Escolha um mês para ler as anotações mais importantes daquele período, resumidas do caderno.</p></div>
+    <div class="cal-top">
+      <div class="legend"><span class="g">Gabriel</span><span class="v">Vitória</span><span class="t">Taiane Araújo - Orientadora</span><span class="b">Bryan</span></div>
+      <div class="obs"><div><b>Observação · anotações em verde</b><p>As anotações em verde foram escritas por Bryan Jonathan Souza Cardoso, antigo integrante do grupo, que participou do projeto até julho de 2026 e deixou alguns registros no caderno.</p></div></div>
     </div>
-    <h3 id="feedTitle" class="kicker" style="margin:18px 0 14px;color:var(--forest)"></h3>
-    <div class="feed" id="feed"></div>
+    <div class="cal" id="calGrid" role="group" aria-label="Meses do diário"></div>
+    <div class="panel-m" id="panel" aria-live="polite">
+      <div class="pm-head">
+        <div><h3 id="pmTitle">—</h3><p class="pm-hl" id="pmHl"></p></div>
+        <div class="pm-nav"><button id="pmPrev" aria-label="Mês anterior">←</button><button id="pmNext" aria-label="Próximo mês">→</button></div>
+      </div>
+      <div class="list" id="pmList"></div>
+    </div>
   </div>
 </section>
 
@@ -281,22 +291,22 @@ footer.site .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:
 
 <section id="equipe">
   <div class="wrap team">
-    <figure class="team-photo"><img src="img/equipe.jpg" alt="Vitória, a orientadora Taiane Araújo e Gabriel no estande da Mostra SESI STEAM"><figcaption>Vitória, Taiane Araújo e Gabriel · Mostra SESI STEAM</figcaption></figure>
+    <figure class="team-photo"><img src="img/equipe.jpg" alt="Vitória, a orientadora Taiane Araújo e Gabriel no estande da Mostra SESI STEAM"><figcaption>Vitória, Taiane e Gabriel - Mostra SESI STEAM</figcaption></figure>
     <div>
-      <div class="head" style="margin-bottom:10px"><span class="kicker">Equipe</span><h2>Quem faz o EcoBreath</h2></div>
+      <div class="head" style="margin-bottom:10px"><span class="kicker">Equipe</span><h2>Quem escreveu este diário</h2></div>
       <div class="people">
         <div class="person"><b>Gabriel Araújo Santana</b><span>Pesquisador</span></div>
         <div class="person"><b>Vitória Gabriely Neves dos Santos</b><span>Pesquisadora</span></div>
-        <div class="person"><b>Taiane Araújo</b><span>Orientadora</span></div>
-        <div class="person"><b>Winne</b><span>Coorientadora</span></div>
+        <div class="person"><b>Taiane de Oliveira Rocha Araújo</b><span>Orientadora</span></div>
+        <div class="person"><b>Winne Katharine Souza Rocha</b><span>Coorientadora</span></div>
       </div>
-      <div class="group"><img src="img/gemat.png" alt="Logo do GEMAT"><p><b>GEMAT</b>Grupo de Pesquisa e Estudos em Matemática e suas Tecnologias</p></div>
+      <div class="group"><img src="img/gemat.png" alt="Logo da GEMAT"><p><b>GEMAT</b>Grupo de Pesquisa e Estudos em Matemática e suas Tecnologias</p></div>
     </div>
   </div>
 </section>
 </main>
 
-<footer class="site"><div class="wrap"><span>EcoBreath · Tecnologia e vida ambiental</span><span>GEMAT · Escola SESI · Vitória da Conquista, BA</span></div></footer>
+<footer class="site"><div class="wrap"><span>Diário de bordo · Projeto EcoBreath</span><span>GEMAT · Escola SESI · Vitória da Conquista, BA</span></div></footer>
 
 <div class="lb" id="lb" hidden role="dialog" aria-modal="true" aria-label="Imagem ampliada">
   <div class="lb-stage"><img id="lbImg" alt=""></div>
@@ -304,73 +314,89 @@ footer.site .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:
 </div>
 
 <script>
-/* [data AAAA-MM-DD, autor g|v|t|x, etapa, título, texto, dados[], post-it, página do diário] */
+/* [data, autor g|v|t|b|x, título, texto, dados[], post-it, página do caderno] */
 const E=[
-["2025-07-22","x","plano","A escolha do tema","A orientadora sugeriu três áreas: Matemática, Tecnologia ou Robótica. As primeiras ideias foram aplicativos para discalculia e para pequenos agricultores, mas criar um app exigiria aprender programação do zero.",[],"",20],
-["2025-08-01","x","plano","Do solo para o ar","A ideia de medir a qualidade do solo virou um protótipo para verificar a qualidade do ar do local, um tema que ajuda as pessoas em geral. Em meados de agosto, Vitória se juntou ao projeto.",[],"",21],
-["2025-09-01","x","plano","Primeira versão do plano","Tema, objetivos, questão de pesquisa, justificativa e referencial teórico definidos.",[],"",22],
-["2025-10-01","x","banca","Pesquisa quantitativa e experimental","O grupo definiu a metodologia, oficializou o trio com Vitória e apresentou a primeira banca. Fomos bastante elogiados pela apresentação.",[],"",22],
-["2025-11-01","x","estudo","Fundamentação teórica","Estudos sobre poluentes atmosféricos, bioindicadores e o funcionamento do Arduino e do sensor MQ-135.",[],"",22],
-["2026-03-17","g","estudo","A tese da orientadora","Resumo em tópicos da tese de Taiane: \"Saberes Matemáticos (des)velados com a Robótica Educacional na EPJAI: um olhar freiriano\".",[],"",1],
-["2026-03-24","v","banca","Apresentação dos temas","Apresentamos o trabalho, recebemos as dicas de Taiane e gravamos o vídeo de divulgação das ICs.",[],"",2],
-["2026-03-31","g","estudo","Palavras-chave e artigos da CAPES","Qualidade do ar, bioindicadores, tecnologia e poluentes atmosféricos. A busca \"qualidade do ar\" and \"bioindicadores\" no banco da CAPES trouxe 23 resultados; quatro artigos foram escolhidos.",["Romanoski 2022","Silva 2019","Santos 2021","Souza 2023"],"Colocar na metodologia do projeto",4],
-["2026-04-06","g","estudo","O que os líquens sentem","Dióxido de enxofre muda a cor do líquen, compostos nitrogenados alteram o pH da superfície e o material particulado entope os poros. Também buscamos a definição de qualidade do ar do CONAMA.",["SO₂","NO₂","PM2.5 · PM10"],"",3],
-["2026-04-07","g","plano","Uma coorientadora de Biologia","Mostramos à Taiane os artigos e o protótipo pensado. Surgiu a ideia de chamar a professora Winne, que gostou da ideia e aceitou ser coorientadora.",["MQ-136","MQ-135","PMS5003"],"",6],
-["2026-04-12","g","plano","Avanços no plano","Entraram as ODS 3, 11 e 13. A questão de pesquisa passou a ser como essa integração pode melhorar a qualidade do ar no Brasil. A fundamentação foi dividida em seis subtópicos.",["ODS 3","ODS 11","ODS 13"],"",7],
-["2026-04-12","v","estudo","Curso Ápice de estatística","Anotações sobre população, amostra, tipos de amostragem e tipos de variáveis.",[],"",10],
-["2026-04-21","v","estudo","Continuação do curso","Frequência absoluta, acumulada e percentual; média, moda e mediana; amplitude, percentil e quartil.",[],"",13],
-["2026-04-27","t","plano","Considerações da orientadora","\"Estou feliz com o andamento do trio, que está em direção à escrita do projeto e ansiosa para a banca de maio.\"",[],"",9],
-["2026-04-28","v","banca","Preparação dos resumos","Taiane leu todos os diários e sugeriu melhorias. Ajustamos o resumo para a banca de 19 de maio.",[],"",10],
-["2026-05-14","g","banca","Resumo enviado","O resumo foi para Taiane, que respondeu no mesmo dia: o título não estava claro e as palavras-chave precisavam mudar.",[],"",15],
-["2026-05-17","g","banca","Últimos ajustes","Feriado dedicado ao resumo, ao slide e à forma de apresentar.",[],"",16],
-["2026-05-19","g","banca","Segunda banca do ano","Avaliação das professoras Nádila e Winne e da coordenadora Débora: escrever de forma impessoal, detalhar a metodologia, pesquisar protótipos parecidos e definir o papel dos líquens.",["15 min de apresentação","15 min de banca"],"",17],
-["2026-05-26","v","banca","Banca da Biotech","Assistimos à banca de outra IC e anotamos as considerações de cada grupo.",[],"",18],
-["2026-06-16","v","feiras","Antes do recesso","Lanche coletivo e organização das feiras. O resumo para o ENEI foi aprovado para os anais, mas o grupo preferiu deixar para outro momento.",["ENEI"],"",26],
-["2026-07-07","g","lab","Líquen e Arduino","Pesquisa com IA sobre como usar líquens em um sistema que mede poluentes do ar com Arduino.",[],"",22],
-["2026-07-08","t","plano","Carta da orientadora","\"O texto está bem escrito, porém faltando algumas referências, delimitações na metodologia e melhor associação dos líquens.\" O grupo está escrevendo o resumo da FEMIC.",[],"",24],
-["2026-07-14","g","lab","Decisão do laboratório","Leitura da dissertação de Roilane Costa e definição da fase de laboratório: trabalhar com enxofre para estudar a mudança de coloração dos líquens.",[],"",27],
-["2026-07-15","g","plano","Metodologia","Tipo de pesquisa, protótipo, materiais e métodos, robótica e tecnologia, química e biologia.",[],"",29],
-["2026-07-16","v","lab","Primeiro dia de laboratório","Testamos o espectrofotômetro com fenolftaleína e água sanitária e observamos o líquen no microscópio. A solubilização gerou um líquido esverdeado.",["0,253","0,225","0,300","1,500"],"",30],
-["2026-08-11","v","lab","Queima teste de enxofre","O enxofre precisa derreter antes de pegar fogo. Um improviso com dois béqueres manteve a fumaça perto do líquen. Descobrimos que a medição certa é no espectro de 420 nm.",["10 g de enxofre"],"",33],
-["2026-08-12","v","lab","Análise das amostras","Medições no espectro de 420 nm com ajuda de um colega da Biotech.",["Sem: 1,036","Com: 1,772"],"",35],
-["2026-08-13","v","lab","Queima mais eficiente","Enxofre derretido na lamparina, chama azul intensa e uma caixa de acrílico para segurar a fumaça.",["Sem: 1,064","Com: 1,537"],"",36],
-["2026-08-18","v","lab","Fim da fase de testes","O líquen absorveu a fumaça durante um dia inteiro. A diferença foi pequena, então a metodologia será aprimorada para o teste final.",[],"",37],
-["2026-08-25","g","lab","Cor no site","A câmera ESP32 custava cerca de R$ 140; o sensor de cor TCS34725 encaixou no projeto. Com a fórmula do grupo, o líquen natural virou #FFFF5D e o poluído #FFFFAC. Daí surgiu a ideia de criar um site para o usuário ver as medidas.",["TCS34725","#FFFF5D","#FFFFAC"],"Como temos certeza que são líquens?",38],
-["2026-09-17","t","feiras","Rumo às feiras","\"Parabenizo Gabriel e Vitória pelos avanços.\" Resumo enviado à FEMIC, artigo da FENIC e resumo da FEBRAT em finalização; Vitória no laboratório e Gabriel desenvolvendo o site.",["FEMIC","FENIC","FEBRAT"],"",44],
-["2026-10-12","v","lab","Plano da última testagem","O LabDisk substituiu o espectrofotômetro. Quatro etapas: coleta, queima controlada, extração da pigmentação e análise RGB para calibrar a câmera do protótipo.",["25 g de enxofre","1 g de líquen","pH 8,0","3000 rpm"],"",45],
-["2026-10-23","x","feiras","Mostra SESI STEAM","Protótipo e pôster apresentados no estande da escola, nos dias 23 e 24 de outubro.",[],"",0]
+["2025-07-01","b","A escolha do tema","Nessa época o projeto ainda era feito só por Bryan e Gabriel, porque Vitória estava em outro trabalho. Taiane disse os temas que podia orientar: Matemática, Tecnologia ou Robótica. Pedimos ideias ao ChatGPT e surgiram um aplicativo sobre discalculia e outro para ajudar pequenos agricultores a saber as melhores condições do terreno, o que plantar, como cuidar e onde vender.",[],"",20],
+["2025-07-02","b","Por que o aplicativo não deu certo","O problema dessas ideias é que teríamos que aprender a programar para criar um aplicativo e, além disso, a orientadora não trabalha com programação, então não teria como nos orientar.",[],"",21],
+["2025-08-01","b","Do solo para o ar","Pensamos em algo que unisse biotecnologia e informática. A primeira ideia foi um protótipo que analisasse a qualidade do solo para pequenos agricultores, mas já existiam muitos projetos assim. Mantivemos a ideia do protótipo e passamos a pensar em verificar a qualidade do ar do local onde ele está, algo que ajuda não só agricultores, mas as pessoas em geral.",[],"",21],
+["2025-08-15","b","Vitória entra no projeto","Em meados de agosto, Vitória se juntou ao projeto e começou a nos ajudar, mesmo sem ter terminado o outro trabalho. Começamos a procurar artigos parecidos e encontramos o de Alexandre Monteiro Araújo.",[],"",21],
+["2025-09-01","b","Primeira versão do plano de pesquisa","Em setembro o grupo definiu o tema, os objetivos, a questão de pesquisa, a justificativa e o referencial teórico. Foi a nossa primeira versão do plano de pesquisa.",[],"",22],
+["2025-10-01","b","Metodologia e primeira banca","Estudamos os tipos de pesquisa e escolhemos a quantitativa e experimental, pois vamos fazer testes práticos com o protótipo e analisar os dados coletados. O trio foi oficializado com Vitória. Fizemos um slide para a primeira banca, mas só Bryan e Gabriel apresentaram. Fomos bastante elogiados; foi uma experiência muito boa e enriquecedora.",[],"",22],
+["2025-11-01","b","Fundamentação teórica","Aprofundamos a fundamentação teórica do projeto, pesquisando sobre poluentes atmosféricos, bioindicadores e o funcionamento do Arduino e do sensor MQ-135.",["MQ-135","Arduino"],"",22],
+["2026-03-17","g","Resumo da tese da orientadora","Resumo em tópicos da tese de Taiane, \"Saberes Matemáticos (des)velados com a Robótica Educacional na EPJAI: um olhar freiriano\". O trabalho mostra como a matemática, a robótica educacional, a Educação de Pessoas Jovens, Adultas e Idosas e o pensamento de Paulo Freire podem se integrar para um ensino mais engajador e humano. Na primeira carta, dedicada ao filho, ela conta sua história e como começou sua paixão pela EPJAI na graduação em Matemática pela UESB.",[],"",1],
+["2026-03-24","v","Apresentação dos temas","Apresentamos os temas dos nossos trabalhos. Taiane nos orientou sobre a apresentação e depois deu suas considerações. Assistimos os colegas e ouvimos o que ela tinha a dizer. No fim, o grupo organizou as observações para adequar o plano de pesquisa e gravamos a continuação do vídeo de \"propaganda\" das ICs.",[],"",2],
+["2026-03-31","g","Palavras-chave e divisão dos artigos","Definimos as palavras-chave: qualidade do ar, bioindicadores, tecnologia e poluentes atmosféricos. Cada integrante ficou com um tema de artigos para pesquisar: qualidade do ar com Bryan, bioindicadores com Gabriel e robótica com Vitória.",["Qualidade do ar","Bioindicadores","Robótica"],"",2],
+["2026-03-31","b","Busca no banco da CAPES","Foi proposto pesquisar no banco de dados da CAPES artigos ligados ao tema. Combinando os termos, a busca \"qualidade do ar\" and \"bioindicadores\" trouxe 23 resultados, e quatro artigos foram escolhidos e resumidos: líquens em área de conservação em Santa Catarina, em um hospital do Vale do São Francisco, perto de um porto no Paraná, e aves como bioindicadores em área urbana.",["Romanoski 2022","Silva 2019","Santos 2021","Souza 2023"],"Colocar na metodologia do projeto",4],
+["2026-04-06","g","O que os poluentes fazem com o líquen","Lista dos poluentes que são nocivos aos líquens e pioram a qualidade do ar: o dióxido de enxofre (SO₂) muda a cor do líquen, os compostos nitrogenados (NO₂) alteram o pH da superfície e o material particulado (PM2.5 e PM10) entope os poros. A pesquisa foi feita com ajuda da IA Gemini, para entender quais poluentes teríamos que identificar com os sensores.",["SO₂","NO₂","PM2.5 · PM10"],"",3],
+["2026-04-06","b","O conceito de qualidade do ar","Bryan decidiu mudar o tópico de qualidade do ar do plano, porque não estava claro e faltavam referências. Buscou a definição no CONAMA, no artigo de Galvão (2011), citado em vários trabalhos, e em um artigo da UFMG (2018). Esses três foram suficientes para entender o conceito.",["CONAMA","Galvão 2011","UFMG 2018"],"",14],
+["2026-04-07","g","Uma coorientadora de Biologia","Na sala de informática, mostramos à Taiane tudo o que tínhamos pesquisado: os artigos e o protótipo pensado. Falando sobre a análise dos líquens, surgiu a ideia de chamar a professora de Biologia Winne para coorientar o projeto. Ela gostou da ideia e aceitou. Também pesquisamos como funcionam os sensores do protótipo.",["MQ-136 · SO₂","MQ-135 · NOₓ, NH₃","PMS5003 · PM"],"",6],
+["2026-04-12","g","Avanços no plano de pesquisa","Dia para corrigir as considerações de Taiane sobre a apresentação de 24/03 e juntar os artigos lidos. Na introdução entraram as ODS 3, 11 e 13. A questão de pesquisa passou a ser como a robótica e o Arduino podem melhorar a qualidade do ar no Brasil. Os objetivos específicos viraram um passo a passo: desenvolver, analisar e informatizar. A fundamentação foi dividida em seis subtópicos. Ainda faltam glossário, hipóteses, metodologia e referências.",["ODS 3","ODS 11","ODS 13"],"",7],
+["2026-04-12","v","Curso Ápice de estatística","Vitória iniciou o curso Ápice pedido pela Taiane e anotou o que achou importante: o que é estatística e para que serve, as etapas para usá-la, população e amostra, tipos de amostragem (aleatória simples, estratificada e sistemática), dados e variáveis.",[],"",10],
+["2026-04-21","v","Continuação do curso","Variáveis qualitativas (ordinal e nominal) e quantitativas (discreta e contínua); frequência absoluta, acumulada e percentual; média, moda e mediana; amplitude total, percentil, quartil e variabilidade.",[],"",13],
+["2026-04-27","t","Considerações da orientadora","\"Em outubro de 2025, o trio especializou seus estudos referentes à qualidade do ar. Em alguns momentos achei Bryan mais distanciado da pesquisa e enfatizei a importância de todos estarem informados. O trio sempre acolhe as discussões e sugestões apontadas por mim. Estou feliz com o andamento do trio, que está em direção à escrita do projeto, e ansiosa para a banca de maio.\"",[],"",9],
+["2026-04-28","v","Os diários com a Taiane","Durante uma semana Taiane levou todos os diários para casa, leu e escreveu seus pareceres, e no encontro sugeriu melhorias para as próximas anotações. Também fomos orientados sobre o resumo para a banca de 19 de maio: o que ele deve ter e como organizar. Sentamos juntos com ela para apontar melhorias e passamos o resto do horário fazendo as alterações.",[],"",10],
+["2026-05-14","g","Resumo enviado","Enviamos o resumo do projeto para Taiane, para apresentar a ideia da pesquisa à banca. Também atualizamos o slide com o novo plano. Ela respondeu no mesmo dia: não conseguiu identificar o título do projeto, as palavras-chave precisavam mudar e era preciso discutir mais tópicos no referencial teórico.",[],"",15],
+["2026-05-17","g","Últimos ajustes para a banca","Usamos o feriado para fazer tudo o que faltava para a banca de 19/05. O foco foi o resumo, a parte com mais correções. Organizamos o slide, enviamos para a Taiane e combinamos como seria a apresentação.",[],"",16],
+["2026-05-19","g","Segunda banca do ano","Apresentamos para as professoras Nádila e Winne e para a coordenadora Débora: 15 minutos de apresentação e 15 de considerações. Nádila pediu escrita impessoal, em terceira pessoa, e uma metodologia mais detalhada. Débora pediu pesquisas sobre protótipos parecidos e elogiou as referências. Winne valorizou a interdisciplinaridade, achou os objetivos alinhados com as ODS e pediu para pensarmos em como introduzir os líquens no monitoramento.",["15 min apresentação","15 min banca"],"",17],
+["2026-05-26","v","Banca da Biotech","Fomos assistir à banca da Biotech, outra IC, assim como eles assistiram a nossa. Anotamos as considerações de cada grupo: especificar os materiais quando forem citados, referenciar cada termo, explicar por que a pesquisa é qualitativa ou quantitativa e manter o objetivo direto.",[],"",18],
+["2026-06-02","v","Encontro cancelado pela greve","O encontro semanal foi cancelado porque os ônibus da cidade estavam em greve e não conseguiríamos voltar para casa. Recebemos a orientação de Taiane para continuar trabalhando normalmente em casa.",[],"",20],
+["2026-06-16","v","Antes do recesso","No último dia antes das férias de junho fizemos um lanche coletivo, e Taiane perguntou como nos sentimos com a IC e o que podemos melhorar. No recesso o grupo organizou as possíveis feiras científicas. Priorizamos o ENEI e fomos aprovados, mas preferimos não enviar porque o trabalho ainda estava incompleto e sem o nome de Taiane e Winne.",["ENEI"],"",26],
+["2026-07-07","v","Conversas individuais","Durante o recesso Taiane leu e anotou observações em todos os planos de pesquisa. No encontro ela conversou com cada grupo, enquanto alterávamos o protótipo, que ainda precisa ser definido.",[],"",26],
+["2026-07-07","g","Líquen e Arduino","Pesquisa com a IA Gemini: \"como eu posso utilizar líquens em um sistema que mede poluentes do ar com Arduino?\". Quando os líquens são expostos ao enxofre, a cor muda. A partir disso é possível ligar ao Arduino um aparelho que detecte essa mudança e avise que o ambiente está poluído.",[],"",22],
+["2026-07-08","t","Carta da orientadora","\"Parabenizo a Vitória pelo registro do curso de estatística. Na banca de 19 de maio, concordo com as observações: diminuir a impessoalidade, reestruturar a metodologia e definir o papel dos líquens. Vitória e Gabriel estavam mais confortáveis, explicando com mais leveza. O texto está bem escrito, porém faltando algumas referências, delimitações na metodologia e melhor associação dos líquens.\" O resumo para o ENEI foi aprovado, mas exigia pagar R$ 90,00, e o grupo está escrevendo o resumo da FEMIC.",[],"",24],
+["2026-07-14","v","A dissertação de Roilane Costa","Estudamos a tese de Roilane Costa sobre os saberes docentes de professores em início de atuação com a robótica educacional: questão de pesquisa, objetivos e referencial teórico. Também assistimos à banca de doutorado dela, que ajudou a clarear como fazer o slide, a escrita e a apresentação.",[],"",27],
+["2026-07-14","g","As prioridades do projeto","Decidimos o que era prioridade: usar as próximas tardes, segunda e quinta, para corrigir juntos o plano de pesquisa e transformá-lo em projeto de pesquisa, escrevendo juntos para evitar erros e padronizar o texto. Também decidimos a parte de laboratório: trabalhar com enxofre para estudar a mudança de coloração dos líquens.",[],"Fazemos a escrita juntos para evitar erros e padronizar a nossa escrita.",28],
+["2026-07-15","g","Metodologia","Gabriel separou um tempo para anotar tudo que precisa melhorar na metodologia, com base nas últimas considerações de Taiane: tipo de pesquisa, protótipo, materiais e métodos, robótica e tecnologia, química e biologia.",[],"",29],
+["2026-07-16","v","Primeiro dia de laboratório","Vitória passou o dia no laboratório com colegas da Biotech para aprender a dinâmica do lugar e o uso do espectrofotômetro. Ligamos o aparelho por 30 minutos, calibramos com água destilada e medimos diluições de fenolftaleína e água sanitária. Depois observamos um líquen no microscópio, batemos no pilão com água e centrifugamos o líquido esverdeado para separar os pedaços.",["0,253","0,225","0,300","1,500"],"",30],
+["2026-07-20","v","Um dia de estudo na escola","Na tarde ficamos na escola para editar as alterações pedidas no plano de pesquisa. Gabriel continuou a metodologia, Bryan fez alterações no plano em geral e Vitória atualizou o diário e mudou o resumo da FEMIC.",["FEMIC"],"",32],
+["2026-07-21","b","Correções e despedida","Bryan aplicou as observações de Taiane no projeto: introdução, questão de pesquisa, objetivos, justificativa, hipóteses e fundamentação teórica. Também contou que decidiu sair da IC: \"sei que o grupo tem completa capacidade de continuar sem mim, pois são 2 alunos extremamente capazes e inteligentes. Muito obrigado por tudo!\"",[],"",32],
+["2026-08-11","v","Queima teste de enxofre","Para Gabriel entender melhor o processo, fizemos uma queima teste. Medimos o enxofre diluído em álcool e o líquen batido com álcool, e percebemos que o espectro certo é o de 420 nm. O enxofre precisa derreter antes de pegar fogo e a fumaça saía rápido da capela, então improvisamos com dois béqueres para manter o líquen em contato com a fumaça.",["10 g de enxofre","420 nm"],"",33],
+["2026-08-12","v","Análise das amostras","Com Gabriel no Inter SESI, Vitória fez a análise com um colega da Biotech e a auxiliar do laboratório. A diferença aparece no aparelho, mas não a olho nu. Também ficou clara a necessidade de uma forma mais eficiente de queimar o enxofre.",["Sem contaminação: 1,036","Com: 1,772"],"",35],
+["2026-08-13","v","Uma queima mais eficiente","O enxofre foi derretido em um béquer em cima de uma lamparina e aceso com uma espátula, pegando fogo com uma chama azul intensa. Para a fumaça não escapar, usamos uma caixa de acrílico. As amostras foram coletadas da árvore da escola.",["Sem: 1,064","Com: 1,537"],"",36],
+["2026-08-18","v","Fim da fase de testes","Na última queima de testes o líquen absorveu a fumaça durante um dia inteiro. A diferença ficou pequena em comparação aos outros testes, então vamos aprimorar a metodologia antes do teste final.",[],"",37],
+["2026-08-25","g","Sensor de cor e cálculo RGB","As queimas não atenderam nossas expectativas, então focamos no plano e no artigo para a FENIC. Com o Copilot, trocamos a câmera ESP32, de cerca de R$ 140, pelo sensor de cor TCS34725, que mede as cores na escala RGB. Criamos uma fórmula para converter os espectros em código de cor: o líquen poluído virou #FFFFAC e o natural, #FFFF5D.",["TCS34725","y = 1 ÷ espectro","x = y ÷ (R+G+B) × 255"],"",38],
+["2026-08-25","g","Teste no laboratório","Na manhã do dia 25 fomos ao laboratório testar as hipóteses: queimamos 25 g de enxofre e poluímos a amostra de líquen durante toda a manhã. Foi a vez em que o experimento deu os resultados mais visíveis, com mudança na coloração depois da maceração. As amostras passaram pelo espectrofotômetro nos espectros vermelho, verde e azul.",["Natural: 8,26 · 3,71 · 0,68","Poluído: 7,46 · 4,69 · 1,25"],"",41],
+["2026-08-25","g","Duas novas etapas","Taiane observou os resultados e perguntou: \"como temos certeza de que estamos trabalhando com líquens?\". Depois veio outra dúvida: o protótipo tem uma leitura acessível? Daí surgiu a ideia de criar um site para facilitar a visualização dos dados, e Vitória aprovou. As próximas etapas são confirmar o que são líquens e criar o site.",[],"Como temos certeza que estamos trabalhando com líquens?",43],
+["2026-09-17","t","Rumo às feiras","\"Parabenizo Gabriel e Vitória pelos avanços. Submeteram um resumo para a FEMIC e estão finalizando o artigo da FENIC e o resumo da FEBRAT. Quando perguntei como podiam afirmar que aqueles matinhos eram líquens, Vitória ficou nesse estudo no laboratório e Gabriel iniciou o desenvolvimento do site. Percebo o quão envolvidos e satisfeitos estão com o projeto. Atualmente estão desenvolvendo a montagem do protótipo, que estará pronto na semana da Mostra STEAM.\"",["FEMIC","FENIC","FEBRAT"],"",44],
+["2026-10-12","v","Plano da última testagem","Descobrimos que o LabDisk faz a análise colorimétrica sem cálculos, então ele substituiu o espectrofotômetro e os testes precisam ser refeitos. O plano: coletar 25 g de enxofre e cerca de 1 g de Flavoparmelia caperata das árvores da escola; fazer a queima controlada em uma caixa; extrair o pigmento só com água ou congelando o líquen em pH 8,0 para quebrar a clorofila e centrifugar por 5 minutos a 3000 rpm; e analisar as cores vermelho, verde e azul para calibrar a câmera do protótipo.",["25 g de enxofre","1 g de líquen","pH 8,0","3000 rpm"],"",45],
+["2026-10-23","x","Mostra SESI STEAM","Protótipo e pôster apresentados no estande da escola durante a Mostra SESI STEAM, nos dias 23 e 24 de outubro.",[],"",0]
 ];
-const WHO={g:"Gabriel",v:"Vitória",t:"Taiane Araújo - Orientadora",x:"Grupo"};
+const WHO={g:"Gabriel",v:"Vitória",t:"Taiane Araújo - Orientadora",b:"Bryan · antigo integrante",x:"Grupo"};
 const MN=["jan","fev","mar","abr","mai","jun","jul","ago","set","out","nov","dez"];
 const MF=["Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"];
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
-const retro=e=>e[1]==="x"&&e[0]<"2026";
+const retro=e=>e[0]<"2026";
 const fmt=e=>{const[y,m,d]=e[0].split("-");return retro(e)?`${MN[+m-1]} ${y}`:`${d}/${m}/${y}`};
-document.getElementById("countTag").textContent=E.length+" registros";
+document.getElementById("countTag").textContent=E.length+" anotações";
 
-/* régua de meses */
-const months=[];for(let y=2025,m=7;y<2026||(y===2026&&m<=10);){months.push(`${y}-${String(m).padStart(2,"0")}`);m++;if(m>12){m=1;y++}}
-const mEl=document.getElementById("months");
-mEl.innerHTML=`<button class="m" id="m-all" data-k="all" aria-pressed="true"><small>tudo</small><b>Todos</b><i></i></button>`+months.map(k=>{
-  const list=E.filter(e=>e[0].startsWith(k)),[y,m]=k.split("-");
-  return `<button class="m" id="m-${k}" data-k="${k}" aria-pressed="false" ${list.length?"":"disabled style='opacity:.45;cursor:default'"}><small>${y}</small><b>${MN[+m-1]}</b><i>${list.map(e=>`<em class="${e[1]}"></em>`).join("")}</i></button>`}).join("");
-let curM="all",curF="todas";
-function render(){
-  const list=E.filter(e=>(curM==="all"||e[0].startsWith(curM))&&(curF==="todas"||e[2]===curF));
-  const [y,m]=curM.split("-");
-  document.getElementById("feedTitle").textContent=(curM==="all"?"Todo o diário":`${MF[+m-1]} de ${y}`)+` · ${list.length} ${list.length===1?"registro":"registros"}`;
-  document.getElementById("feed").innerHTML=list.length?list.map(e=>`
-    <article class="e ${e[1]}"><time datetime="${e[0]}">${fmt(e)}<small>${e[2]==="lab"?"laboratório":e[2]==="plano"?"plano":e[2]==="banca"?"banca":e[2]==="feiras"?"feiras":"estudos"}</small></time>
-    <div class="card${e[1]==="t"?" letter":""}"><span class="who">${WHO[e[1]]}</span><h4>${esc(e[3])}</h4><p>${esc(e[4])}</p>
-    ${e[5].length?`<div class="data">${e[5].map(d=>`<span>${esc(d)}</span>`).join("")}</div>`:""}
-    ${e[6]?`<div class="note">${esc(e[6])}</div>`:""}
-    ${e[7]?`<button class="page-link" data-p="${e[7]}">Ver página ${e[7]} do caderno →</button>`:""}</div></article>`).join(""):`<p class="empty">Nenhum registro dessa etapa neste mês.</p>`;
-  document.querySelectorAll("#feed .page-link").forEach(b=>b.onclick=()=>openLb(PAGES,+b.dataset.p-1));
-  mEl.querySelectorAll(".m").forEach(b=>b.setAttribute("aria-pressed",b.dataset.k===curM));
-  document.querySelectorAll("#filters .chip").forEach(b=>b.setAttribute("aria-pressed",b.dataset.f===curF));
+/* calendário */
+const HL={"2025-07":"A escolha do tema","2025-08":"A ideia do protótipo e a chegada de Vitória","2025-09":"Primeira versão do plano de pesquisa","2025-10":"Metodologia definida e primeira banca","2025-11":"Fundamentação teórica","2026-03":"Palavras-chave e artigos da CAPES","2026-04":"Winne aceita ser coorientadora e o plano avança","2026-05":"Segunda banca do ano, em 19/05","2026-06":"Organização das feiras e o ENEI","2026-07":"Começa a fase de laboratório","2026-08":"Queimas de enxofre e a cor dos líquens","2026-09":"Rumo à FEMIC, FENIC e FEBRAT","2026-10":"Última testagem e Mostra SESI STEAM"};
+const WD=["dom","seg","ter","qua","qui","sex","sáb"];
+const byM=k=>E.filter(e=>e[0].startsWith(k));
+const active=[...new Set(E.map(e=>e[0].slice(0,7)))].sort();
+const grid=document.getElementById("calGrid");
+grid.innerHTML=["2025","2026"].map(y=>`<div class="yr"><b>${y}</b>${active.filter(k=>k.startsWith(y)).map(k=>`<button class="pill" id="mc-${k}" data-k="${k}" aria-pressed="false">${MN[+k.slice(5)-1]}<small>${byM(k).length}</small></button>`).join("")}</div>`).join("");
+let cur=active[active.length-1];
+function show(k,scroll){
+  cur=k;const [y,m]=k.split("-").map(Number),list=byM(k);
+  grid.querySelectorAll(".pill").forEach(b=>b.setAttribute("aria-pressed",b.dataset.k===k));
+  document.getElementById("pmTitle").innerHTML=`${MF[m-1]}<small>${y} · ${list.length} ${list.length===1?"anotação":"anotações"}</small>`;
+  document.getElementById("pmHl").innerHTML=`<b>Destaque do mês</b>${esc(HL[k]||"")}`;
+  document.getElementById("pmList").innerHTML=list.map(e=>{
+    const dt=new Date(e[0]+"T12:00:00"),r=retro(e);
+    return `<article class="e ${e[1]}"><div class="day">${r?`<b>${MN[m-1]}</b><small>${y}</small>`:`<b>${e[0].slice(8)}</b><small>${WD[dt.getDay()]}</small>`}</div>
+    <div class="card${e[1]==="t"?" letter":""}"><span class="who">${WHO[e[1]]}</span><h4>${esc(e[2])}</h4><p>${esc(e[3])}</p>
+    ${e[4].length?`<div class="data">${e[4].map(d=>`<span>${esc(d)}</span>`).join("")}</div>`:""}
+    ${e[5]?`<div class="note">${esc(e[5])}</div>`:""}
+    ${e[6]?`<button class="page-link" data-p="${e[6]}">Ver página ${e[6]} do caderno →</button>`:""}</div></article>`}).join("");
+  document.querySelectorAll("#pmList .page-link").forEach(b=>b.onclick=()=>openLb(PAGES,+b.dataset.p-1));
+  const i=active.indexOf(k);
+  document.getElementById("pmPrev").disabled=i<=0;document.getElementById("pmNext").disabled=i>=active.length-1;
+  if(scroll)document.getElementById("panel").scrollIntoView({block:"nearest"});
 }
-mEl.addEventListener("click",ev=>{const b=ev.target.closest(".m");if(b&&!b.disabled){curM=b.dataset.k;render()}});
-document.getElementById("filters").addEventListener("click",ev=>{const b=ev.target.closest(".chip");if(b){curF=b.dataset.f;render()}});
+grid.addEventListener("click",ev=>{const b=ev.target.closest(".pill");if(b)show(b.dataset.k)});
+document.getElementById("pmPrev").onclick=()=>{const i=active.indexOf(cur);if(i>0)show(active[i-1])};
+document.getElementById("pmNext").onclick=()=>{const i=active.indexOf(cur);if(i<active.length-1)show(active[i+1])};
 
 /* galeria */
 const PHOTOS=[
@@ -400,7 +426,7 @@ document.getElementById("lbClose").onclick=close;document.getElementById("lbPrev
 lb.addEventListener("click",e=>{if(e.target===lb||e.target.classList.contains("lb-stage"))close()});
 document.addEventListener("keydown",e=>{if(lb.hidden)return;if(e.key==="Escape")close();if(e.key==="ArrowRight")go(1);if(e.key==="ArrowLeft")go(-1)});
 
-render();gallery("paginas");
+show(cur);gallery("paginas");
 </script>
 
 </body>
