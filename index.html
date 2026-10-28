@@ -48,7 +48,7 @@ section{padding-block:clamp(56px,8vw,96px)}
 .bar .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:10px}
 .logo{display:flex;align-items:center;gap:10px;text-decoration:none}
 .logo img{height:34px;width:auto}
-.logo b{font-family:var(--f-display);font-size:1.3rem;color:var(--forest);font-weight:800}
+.logo b{white-space:nowrap;font-family:var(--f-display);font-size:1.3rem;color:var(--forest);font-weight:800}
 .logo-sub{font-family:var(--f-mono);font-size:.68rem;color:var(--copper);letter-spacing:.1em;text-transform:uppercase;padding-left:10px;border-left:1px solid var(--line)}
 .bar nav{display:flex;gap:clamp(10px,2.2vw,26px);font-weight:600;font-size:.9rem}
 .bar nav a{text-decoration:none;color:var(--muted)}
@@ -181,11 +181,14 @@ section{padding-block:clamp(56px,8vw,96px)}
 
 /* galeria */
 .tabs{display:flex;gap:8px;margin-bottom:20px}
-.shots{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px}
+.chip{font-family:var(--f-body);font-weight:600;font-size:.86rem;padding:8px 15px;border-radius:999px;border:1px solid var(--line);background:var(--card);color:var(--muted);cursor:pointer}
+.chip:hover{border-color:var(--moss)}
+.chip[aria-pressed="true"]{background:var(--forest);border-color:var(--forest);color:var(--paper)}
+.shots{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));grid-auto-flow:dense;gap:12px}
 .shot{position:relative;border:0;padding:0;background:var(--paper-2);border-radius:14px;overflow:hidden;cursor:zoom-in;aspect-ratio:3/4}
 .shot img{width:100%;height:100%;object-fit:cover;transition:transform .35s}
 .shot:hover img{transform:scale(1.04)}
-.shot.wide{grid-column:span 2;aspect-ratio:auto}
+.shot.wide{grid-column:span 2;aspect-ratio:3/2}
 @media (max-width:520px){.shot.wide{grid-column:span 1}}
 .shot.logo-tile{background:#fff}
 .shot.logo-tile img{object-fit:contain;padding:18px}
@@ -219,11 +222,70 @@ section{padding-block:clamp(56px,8vw,96px)}
 footer.site{border-top:1px solid var(--line);padding-block:28px;font-size:.86rem;color:var(--muted)}
 footer.site .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
 
+
+/* materiais de estudo */
+@media (max-width:520px){.logo-sub{display:none}.refs-btn{font-size:.8rem;padding:7px 11px}}
+.bar-actions{display:flex;align-items:center;gap:18px}
+.refs-btn{font-family:var(--f-body);font-weight:700;font-size:.86rem;padding:8px 14px;border-radius:999px;border:1.5px solid var(--forest);background:var(--forest);color:var(--paper);cursor:pointer;display:inline-flex;gap:8px;align-items:center;white-space:nowrap}
+.refs-btn:hover{background:var(--moss);border-color:var(--moss)}
+.refs-btn small{font-family:var(--f-mono);font-size:.68rem;background:var(--lichen);color:var(--forest);border-radius:999px;padding:1px 7px}
+.drawer-bg{position:fixed;inset:0;z-index:90;background:rgba(15,26,19,.45);display:flex;justify-content:flex-end}
+.drawer-bg[hidden]{display:none}
+.drawer{width:min(560px,100%);height:100%;background:var(--paper);display:grid;grid-template-rows:auto auto 1fr;box-shadow:-24px 0 60px -20px rgba(0,0,0,.45);padding-top:env(safe-area-inset-top,0px);padding-right:env(safe-area-inset-right,0px);animation:slide .28s ease-out}
+@keyframes slide{from{transform:translateX(40px);opacity:.4}to{transform:none;opacity:1}}
+.dr-head{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;padding:22px 22px 14px;border-bottom:1px solid var(--line)}
+.dr-head h2{font-size:1.7rem}
+.dr-head p{margin:4px 0 0;color:var(--muted);font-size:.88rem}
+.dr-close{width:40px;height:40px;flex:0 0 40px;border-radius:50%;border:1.5px solid var(--forest);background:transparent;color:var(--forest);font-size:1.2rem;cursor:pointer}
+.dr-close:hover{background:var(--forest);color:var(--paper)}
+.dr-search{padding:14px 22px;border-bottom:1px solid var(--line)}
+.dr-search input{width:100%;font:inherit;font-size:.92rem;padding:10px 14px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--ink)}
+.dr-search input:focus{outline:2px solid var(--copper);outline-offset:1px}
+.dr-list{overflow-y:auto;overscroll-behavior:contain;padding:8px 22px calc(28px + env(safe-area-inset-bottom,0px));margin:0;list-style:none;counter-reset:r}
+.dr-list li{counter-increment:r;display:grid;grid-template-columns:32px 1fr;gap:10px;padding:14px 0;border-bottom:1px dashed var(--line);font-size:.88rem;line-height:1.55;color:#2c3a30}
+.dr-list li::before{content:counter(r,decimal-leading-zero);font-family:var(--f-mono);font-size:.72rem;color:var(--copper);padding-top:2px}
+.dr-list li>span{min-width:0;overflow-wrap:anywhere}
+.dr-list b{color:var(--forest)}
+.dr-list a{color:var(--copper);text-underline-offset:2px}
+.dr-empty{color:var(--muted);padding:20px 0;font-size:.9rem}
+html.locked,html.locked body{overflow:hidden}
+
+/* feiras */
+.fairs-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px;position:relative}
+@media (max-width:1060px){.fairs-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:700px){.fairs-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:440px){.fairs-grid{grid-template-columns:1fr}}
+.fair{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px;display:grid;gap:10px;align-content:start;position:relative;overflow:hidden}
+.fair::before{content:"";position:absolute;inset:0 0 auto;height:5px;background:var(--st)}
+.fair.ok{--st:#4f8a3c}.fair.pub{--st:#a8702e}.fair.sub{--st:#c9c1a6}
+.fair h3{font-family:var(--f-display);font-size:1.6rem;color:var(--forest);line-height:1}
+.fair .full{font-size:.8rem;color:var(--muted);line-height:1.35;margin-top:-4px}
+.fair p{margin:0;font-size:.9rem;color:#334237}
+.status{justify-self:start;font-family:var(--f-mono);font-size:.68rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:4px 9px;border-radius:999px;background:color-mix(in srgb,var(--st) 18%,var(--card));color:var(--forest);border:1px solid color-mix(in srgb,var(--st) 55%,transparent)}
+.fair a.btn{justify-self:start;font-size:.82rem;padding:8px 14px}
+.fairs-sum{display:flex;flex-wrap:wrap;gap:10px 22px;margin-top:22px;font-size:.9rem;color:var(--muted)}
+.fairs-sum b{font-family:var(--f-display);font-size:1.5rem;color:var(--forest);margin-right:6px}
+
+/* site */
+.site-band{padding-block:clamp(40px,6vw,64px) 0}
+.site-band+#galeria{padding-top:clamp(36px,5vw,56px)}
+.site-card{display:grid;grid-template-columns:auto 1fr auto;gap:clamp(18px,3vw,36px);align-items:center;background:var(--forest);color:var(--paper);border-radius:26px;padding:clamp(22px,4vw,40px)}
+@media (max-width:820px){.site-card{grid-template-columns:1fr}}
+.site-card>*{min-width:0}
+.site-card .ico{width:110px;height:110px;border-radius:50%;background:var(--paper);display:grid;place-items:center}
+.site-card .ico img{width:84px}
+.site-card h2{color:var(--paper);font-size:clamp(1.6rem,3vw,2.2rem)}
+.site-card .kicker{color:var(--lichen)}
+.site-card p{margin:8px 0 0;color:#cfdcc8;max-width:58ch;font-size:.96rem}
+.site-card .btn{background:var(--lichen);border-color:var(--lichen);color:var(--forest);white-space:nowrap}
+.site-card .btn:hover{background:var(--paper);border-color:var(--paper);color:var(--forest)}
+
 /* lightbox */
 .lb{position:fixed;inset:0;z-index:80;background:rgba(15,26,19,.95);display:grid;grid-template-rows:1fr auto;padding:max(16px,env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) max(16px,env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
 .lb[hidden]{display:none}
-.lb-stage{min-height:0;display:grid;place-items:center}
-.lb img{max-height:100%;max-width:100%;object-fit:contain;border-radius:8px;background:#fff}
+.lb-stage{min-height:0;overflow-y:auto;overscroll-behavior:contain;display:grid;justify-items:center;align-items:start;padding-block:4px}
+.lb img{width:min(920px,100%);height:auto;border-radius:8px;background:#fff}
+.lb img.photo{width:auto;max-width:100%;max-height:100%;align-self:center}
 .lb-bar{display:flex;justify-content:space-between;align-items:center;gap:12px;padding-top:12px;color:var(--paper);font-size:.9rem}
 .lb-bar .ctl{display:flex;gap:8px}
 .lb .btn{border-color:#8ea58a;color:var(--paper)}
@@ -235,9 +297,12 @@ footer.site .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:
 <header class="bar">
   <div class="wrap">
     <a class="logo" href="#inicio"><b>Diário de Bordo</b><span class="logo-sub">GEMAT · IC SESI</span></a>
-    <nav aria-label="Seções">
-      <a href="#resumo">Resumo</a><a href="#diario">Diário</a><a href="#galeria">Galeria</a><a href="#equipe">Equipe</a>
-    </nav>
+    <div class="bar-actions">
+      <nav aria-label="Seções">
+        <a href="#resumo">Resumo</a><a href="#diario">Diário</a><a href="#feiras">Feiras</a><a href="#galeria">Galeria</a><a href="#equipe">Equipe</a>
+      </nav>
+      <button class="refs-btn" id="refsOpen" aria-haspopup="dialog" aria-controls="refsDrawer">Materiais de estudo <small id="refsCount">26</small></button>
+    </div>
   </div>
 </header>
 
@@ -297,9 +362,37 @@ footer.site .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:
   </div>
 </section>
 
+<section id="feiras" style="background:var(--paper-2);border-block:1px solid var(--line)">
+  <div class="wrap">
+    <div class="head"><span class="kicker">Eventos e feiras</span><h2>Por onde o projeto passou</h2><p class="lead">Entre junho e outubro de 2026 o projeto foi inscrito em cinco eventos científicos. Três aprovaram o trabalho, e um deles resultou em um artigo publicado.</p></div>
+    <div class="fairs-grid">
+      <article class="fair ok"><span class="status">Aprovado</span><h3>ENEI</h3><p>Primeiro evento priorizado no recesso de junho. O resumo foi aprovado para os anais, mas o grupo optou por não pagar a taxa de publicação, porque o trabalho ainda estava incompleto.</p></article>
+      <article class="fair sub"><span class="status">Inscrito</span><h3>FEMIC</h3><p>Resumo escrito e reescrito entre julho e agosto e submetido para a feira.</p></article>
+      <article class="fair sub"><span class="status">Inscrito</span><h3>FENIC</h3><p>Plano de pesquisa e artigo científico finalizados em setembro, com os resultados do laboratório.</p></article>
+      <article class="fair pub"><span class="status">Aprovado · artigo publicado</span><h3>SINIJOPE</h3><p>Trabalho aprovado e publicado como artigo, disponível no repositório Zenodo.</p><a class="btn" href="https://zenodo.org/records/23647976" target="_blank" rel="noopener">Ler o artigo ↗</a></article>
+      <article class="fair ok"><span class="status">Aprovado</span><h3>FEBRAT</h3><p>Resumo expandido enviado em setembro e aprovado.</p></article>
+    </div>
+    <div class="fairs-sum"><span><b>5</b>eventos com inscrição</span><span><b>3</b>aprovações</span><span><b>1</b>artigo publicado</span></div>
+  </div>
+</section>
+
+<section class="site-band" id="site">
+  <div class="wrap">
+    <div class="site-card">
+      <div class="ico"><img src="img/ecobreath-icone.png" alt=""></div>
+      <div><span class="kicker">Nosso site</span><h2>EcoBreath na prática</h2><p>Durante o laboratório surgiu uma pergunta: o protótipo tem uma leitura acessível? Daí nasceu o site do EcoBreath, criado por Gabriel, onde qualquer pessoa pode ver de forma simples as medidas feitas pelo protótipo e entender o que a cor do líquen diz sobre a qualidade do ar.</p></div>
+      <a class="btn" id="siteBtn" href="#" target="_blank" rel="noopener">Acessar o site ↗</a>
+    </div>
+  </div>
+</section>
+
 <section id="galeria">
   <div class="wrap">
-    <div class="head"><span class="kicker">Galeria</span><h2>O caderno digitalizado</h2><p class="lead">As 46 páginas do diário de bordo. Clique para ampliar e passar as páginas.</p></div>
+    <div class="head"><span class="kicker">Galeria</span><h2>Fotos e caderno</h2><p class="lead">Registros do laboratório, do protótipo e da coleta dos líquens, e as 46 páginas do diário digitalizadas. Clique para ampliar.</p></div>
+    <div class="tabs" role="group" aria-label="Galeria">
+      <button class="chip" id="g-fotos" data-g="fotos" aria-pressed="true">Fotos do projeto (35)</button>
+      <button class="chip" id="g-paginas" data-g="paginas" aria-pressed="false">Páginas do diário (46)</button>
+    </div>
     <div class="shots" id="shots"></div>
   </div>
 </section>
@@ -323,6 +416,13 @@ footer.site .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:
 
 <footer class="site"><div class="wrap"><span>Diário de bordo · Projeto EcoBreath</span><span>GEMAT · Escola SESI · Vitória da Conquista, BA</span></div></footer>
 
+<div class="drawer-bg" id="refsDrawer" hidden>
+  <div class="drawer" role="dialog" aria-modal="true" aria-labelledby="refsTitle">
+    <div class="dr-head"><div><span class="kicker">Referências do projeto</span><h2 id="refsTitle">Materiais de estudo</h2><p>Livros, artigos, dissertações e documentos usados na pesquisa, em ordem alfabética.</p></div><button class="dr-close" id="refsClose" aria-label="Fechar materiais de estudo">✕</button></div>
+    <div class="dr-search"><input type="search" id="refsSearch" placeholder="Buscar por autor, título ou ano" aria-label="Buscar nas referências"></div>
+    <ol class="dr-list" id="refsList"></ol>
+  </div>
+</div>
 <div class="lb" id="lb" hidden role="dialog" aria-modal="true" aria-label="Imagem ampliada">
   <div class="lb-stage"><img id="lbImg" alt=""></div>
   <div class="lb-bar"><span id="lbCap"></span><div class="ctl"><button class="btn" id="lbPrev" aria-label="Anterior">←</button><button class="btn" id="lbNext" aria-label="Próxima">→</button><button class="btn fill" id="lbClose">Fechar</button></div></div>
@@ -423,13 +523,8 @@ document.getElementById("pmPrev").onclick=()=>{const i=active.indexOf(cur);if(i>
 document.getElementById("pmNext").onclick=()=>{const i=active.indexOf(cur);if(i<active.length-1)show(active[i+1])};
 
 /* galeria */
-const PHOTOS=[
- {src:"img/dupla.jpg",cap:"Gabriel e Vitória na Mostra SESI STEAM"},
- {src:"img/equipe.jpg",cap:"Vitória, Taiane e Gabriel"},
- {src:"img/ecobreath.png",cap:"Logo do EcoBreath",logo:1,wide:1},
- {src:"img/gemat.png",cap:"GEMAT",logo:1}
-];
-const PAGES=Array.from({length:46},(_,i)=>({src:`diario/p${String(i+1).padStart(2,"0")}.jpg`,cap:`Página ${i+1} do diário`}));
+const PHOTOS=[{"src": "fotos/thumb/f01.jpg", "hd": "fotos/f01.jpg", "cap": "Protótipo montado com Arduino, protoboard e display", "wide": true}, {"src": "fotos/thumb/f02.jpg", "hd": "fotos/f02.jpg", "cap": "Outra vista do protótipo com o display LCD", "wide": true}, {"src": "fotos/thumb/f52.jpg", "hd": "fotos/f52.jpg", "cap": "Líquens no tronco de uma árvore da escola", "wide": true}, {"src": "fotos/thumb/f44.jpg", "hd": "fotos/f44.jpg", "cap": "Coleta de líquen nas árvores da escola", "wide": true}, {"src": "fotos/thumb/f49.jpg", "hd": "fotos/f49.jpg", "cap": "Amostra de líquen coletada", "wide": true}, {"src": "fotos/thumb/f36.jpg", "hd": "fotos/f36.jpg", "cap": "Líquens separados na placa de Petri", "wide": false}, {"src": "fotos/thumb/f43.jpg", "hd": "fotos/f43.jpg", "cap": "Pesagem do líquen na balança", "wide": true}, {"src": "fotos/thumb/f33.jpg", "hd": "fotos/f33.jpg", "cap": "Pesagem de 10 g de enxofre", "wide": false}, {"src": "fotos/thumb/f28.jpg", "hd": "fotos/f28.jpg", "cap": "Enxofre derretendo no béquer", "wide": false}, {"src": "fotos/thumb/f27.jpg", "hd": "fotos/f27.jpg", "cap": "Enxofre queimando com chama azul", "wide": false}, {"src": "fotos/thumb/f25.jpg", "hd": "fotos/f25.jpg", "cap": "Queima do enxofre dentro da caixa de acrílico", "wide": true}, {"src": "fotos/thumb/f31.jpg", "hd": "fotos/f31.jpg", "cap": "Líquen exposto à fumaça do enxofre", "wide": false}, {"src": "fotos/thumb/f34.jpg", "hd": "fotos/f34.jpg", "cap": "Béquer coberto com líquen e enxofre", "wide": false}, {"src": "fotos/thumb/f38.jpg", "hd": "fotos/f38.jpg", "cap": "Preparação das amostras para a queima", "wide": true}, {"src": "fotos/thumb/f39.jpg", "hd": "fotos/f39.jpg", "cap": "Manuseio da amostra na placa de Petri", "wide": false}, {"src": "fotos/thumb/f23.jpg", "hd": "fotos/f23.jpg", "cap": "Líquen macerado no almofariz", "wide": false}, {"src": "fotos/thumb/f11.jpg", "hd": "fotos/f11.jpg", "cap": "Soluções de líquen após a extração", "wide": true}, {"src": "fotos/thumb/f13.jpg", "hd": "fotos/f13.jpg", "cap": "Comparação entre duas amostras", "wide": false}, {"src": "fotos/thumb/f16.jpg", "hd": "fotos/f16.jpg", "cap": "Extrato de líquen no béquer", "wide": true}, {"src": "fotos/thumb/f17.jpg", "hd": "fotos/f17.jpg", "cap": "Amostras cobertas com filme plástico", "wide": true}, {"src": "fotos/thumb/f46.jpg", "hd": "fotos/f46.jpg", "cap": "Pesagem da amostra diluída", "wide": false}, {"src": "fotos/thumb/f47.jpg", "hd": "fotos/f47.jpg", "cap": "Extrato de líquen no tubo de ensaio", "wide": false}, {"src": "fotos/thumb/f30.jpg", "hd": "fotos/f30.jpg", "cap": "Amostras em tubos de ensaio", "wide": false}, {"src": "fotos/thumb/f29.jpg", "hd": "fotos/f29.jpg", "cap": "Centrífuga do laboratório", "wide": true}, {"src": "fotos/thumb/f40.jpg", "hd": "fotos/f40.jpg", "cap": "Amostras na cubeta para leitura", "wide": false}, {"src": "fotos/thumb/f48.jpg", "hd": "fotos/f48.jpg", "cap": "Espectrofotômetro usado nas medições", "wide": true}, {"src": "fotos/thumb/f50.jpg", "hd": "fotos/f50.jpg", "cap": "Microscópio do laboratório", "wide": false}, {"src": "fotos/thumb/f19.jpg", "hd": "fotos/f19.jpg", "cap": "Análise das lâminas no microscópio", "wide": true}, {"src": "fotos/thumb/f21.jpg", "hd": "fotos/f21.jpg", "cap": "Líquen ampliado na lupa", "wide": false}, {"src": "fotos/thumb/f03.jpg", "hd": "fotos/f03.jpg", "cap": "Células do líquen vistas no microscópio", "wide": false}, {"src": "fotos/thumb/f04.jpg", "hd": "fotos/f04.jpg", "cap": "Estrutura do líquen ampliada no microscópio", "wide": false}, {"src": "fotos/thumb/f07.jpg", "hd": "fotos/f07.jpg", "cap": "Filamentos do líquen no microscópio", "wide": false}, {"src": "fotos/thumb/f09.jpg", "hd": "fotos/f09.jpg", "cap": "Amostra de líquen no microscópio", "wide": false}, {"src": "fotos/thumb/f10.jpg", "hd": "fotos/f10.jpg", "cap": "Lâmina de líquen no microscópio", "wide": false}, {"src": "fotos/thumb/f20.jpg", "hd": "fotos/f20.jpg", "cap": "Líquen visto no microscópio com luz forte", "wide": false}];
+const PAGES=Array.from({length:46},(_,i)=>({src:`diario/p${String(i+1).padStart(2,"0")}.jpg`,hd:`diario/hd/p${String(i+1).padStart(2,"0")}.jpg`,cap:`Página ${i+1} do diário`,page:1}));
 const shots=document.getElementById("shots");
 function gallery(g){
   const list=g==="paginas"?PAGES:PHOTOS;
@@ -440,17 +535,38 @@ function gallery(g){
 }
 
 
+
+/* materiais de estudo */
+const REFS=["ARAÚJO, Alexandre Moreira. DESENVOLVIMENTO DE EQUIPAMENTO DE BAIXO CUSTO BASEADO NO MICROCONTROLADOR ARDUINO® PARA AVALIAÇÃO DOS NÍVEIS DOS POLUENTES MONÓXIDO DE CARBONO, DIÓXIDO DE NITROGÊNIO E MATERIAL PARTICULADO NO AR ATMOSFÉRICO. Sete Alagoas/MG: UNIFEMM, 2023.", "ANDRÉA, M. M. de. Bioindicadores ecotoxicológicos de agrotóxicos. 2008. Artigo em Hypertexto. Essa é a referência que aparece como Andréa (2008) nas fontes que consultei.", "BRASIL. Conselho Nacional do Meio Ambiente. Resolução nº 491, de 19 de novembro de 2018. Dispõe sobre padrões de qualidade do ar. Diário Oficial da União: seção 1, Brasília, DF, n. 223, p. 155-156, 21 nov. 2018. Disponível em: https://conama.mma.gov.br/index.php?option=com_sisconama&task=documento.download&id=25509. Acesso em 06 de maio de 2026", "BUENO, José De França et al. Métodos Quantitativos, Qualitativos e Mistos de Pesquisa. Rio de Janeiro: Faculdade de Administração e Ciências Contábeis, 2018.", "CETESB – COMPANHIA AMBIENTAL DO ESTADO DE SÃO PAULO. Qualidade do ar no estado de São Paulo 2021. São Paulo: CETESB, 2022. 219 p. + 5 apêndices. (Série Relatórios).", "COCCARO, D. M. B. Estudo da determinação de elementos-traço em liquens para monitoração ambiental. 2001. Dissertação (Mestrado em Ciências, área de Tecnologia Nuclear – Aplicações) – Instituto de Pesquisas Energéticas e Nucleares, Universidade de São Paulo, São Paulo, 2001.", "COLONI JÚNIOR, G. Concepção de manual de campo para diagnóstico e monitoramento da qualidade do ar utilizando fungos liquenizados. 2019. Trabalho de Conclusão de Curso (Bacharelado em Engenharia Ambiental e Sanitária) – Universidade do Sul de Santa Catarina, Palhoça, 2019.", "CONTI, M. E.; CECCHETTI, G. Biological monitoring: lichens as bioindicators of air pollution assessment — a review. Environmental Pollution, v. 114, n. 3, p. 471–492, 2001. DOI: 10.1016/S0269-7491(00)00224-4.", "GALVÃO, L.; FINKELMAN, J.; HENAO, S. Governança da saúde ambiental na América Latina. In: Galvão LAC, Finkelman J, Henao S, organizadores. Determinantes ambientais e Sociais da saúde. Rio de Janeiro: OPAS, Fiocruz; 2011.", "GIL, Antonio Carlos et al. Como elaborar projetos de pesquisa. 4. ed. São Paulo: Editora Atlas, 2002.", "MARCELLI, M. P. History and current knowledge of Brazilian lichenology. In: MARCELLI, M. P.; SEAWARD, M. R. D. (eds.). Lichenology in Latin America: history, current knowledge and applications. São Paulo: CETESB, 1998. p. 25–45.", "MARTINS, Cláudia Rocha; ANDRADE, Jailson Bittencourt de. Química atmosférica do enxofre (IV): emissões, reações em fase aquosa e impacto ambiental. Química Nova, v. 25, n. 2, p. 259-272, 2002", "MARTINS, S. M. A.; KÄFFER, M. I.; LEMOS, A. Líquens como bioindicadores da qualidade do ar numa área de termoelétrica, Rio Grande do Sul, Brasil. Hoehnea, v. 35, n. 3, p. 425-433, 2008.", "NASH, T. H. (Ed.). Lichen Biology. 2. ed. Cambridge: Cambridge University Press, 2008.", "REIS, Ney Robinson Salvi dos; SOUZA, Lucia Helena Ramos de. Robótica no Brasil: relatos de pesquisa e desenvolvimento. In: Anais do 170 SNHCT. [S.l.: s.n.], 2020.", "ROMANOSKI, Daniela Loureiro. Avaliação da qualidade do ar por meio da utilização de liquens. 2022. Dissertação (Mestrado em Geografia) – Universidade Federal da Fronteira Sul, Campus Chapecó, Erechim, 2022.", "SANTOS, Elizangela da Veiga. LÍQUENS BIOINDICADORES COMO SENTINELAS DE POLUIÇÃO ATMOSFÉRICA NAS ÁREAS DE INFLUÊNCIA DO PORTO D. PEDRO II - PARANAGUÁ, PARANÁ ' 28/09/2021 75 f. Mestrado em DESENVOLVIMENTO TERRITORIAL SUSTENTÁVEL Instituição de Ensino: UNIVERSIDADE FEDERAL DO PARANÁ, Matinhos Biblioteca Depositária: https://acervodigital.ufpr.br/handle/1884/41926", "SEAWARD, M. R. D. Environmental role of lichens. In: NASH III, T. H. (ed.). Lichen Biology. 2. ed. Cambridge: Cambridge University Press, 2008. p. 274–298. DOI: 10.1017/CBO9780511790478.015.", "SILVA, R. A. Cladonia verticillaris (líquen) como biomonitor padrão da qualidade do ar no Distrito de Jaboatão – PE. 2002. Dissertação (Mestrado em Gestão e Políticas Ambientais) – Universidade Federal de Pernambuco, Recife, 2002.", "SILVA, Franciene Feitoza da. LÍQUENS COMO INDICADOR DE QUALIDADE DO AR DE INTERIOR EM UM HOSPITAL DO SUBMÉDIO DO VALE DO SÃO FRANCISCO ' 27/02/2019 88 f. Mestrado em Ciências da Saúde e Biológicas Instituição de Ensino: UNIVERSIDADE FEDERAL DO VALE DO SÃO FRANCISCO, Petrolina Biblioteca Depositária: Biblioteca da UNIVASF, campus Centro, Petrolina-PE", "SILVA, Marta Luma Batista. Estimativa da qualidade do ar nas principais áreas metropolitanas do Nordeste brasileiro. 2021. Dissertação (Mestrado em Meteorologia) – Universidade Federal de Alagoas, Instituto de Ciências Atmosféricas, Maceió, 2021.", "SIMÕES, Walter Charles et al. Utilização de micro sensor para monitoramento da qualidade do ar em ambiente industrial. Manaus, Amazonas: STUDIES PUBLICAÇÕES, 2024.", "SOUZA, Brenda Silveira de. ANÁLISE AMBIENTAL INTEGRADA DA QUALIDADE DO AR, VARIÁVEIS METEOROLÓGICAS E COMUNIDADE DE AVES EM ÁREA URBANA NO MUNICÍPIO DE GRAMADO/RS ' 27/03/2023 42 f. Mestrado em QUALIDADE AMBIENTAL Instituição de Ensino: UNIVERSIDADE FEEVALE, Novo Hamburgo Biblioteca Depositária: Biblioteca Paulo Sérgio Gusmão", "STREIT, Nivia Maria; CANTERLE, Liana Pedrolo; CANTO, Marta Weber do; HECKTHEUER, Luísa Helena Hychecki. As clorofilas. Ciência Rural, Santa Maria, v. 35, n. 3, p. 748-755, maio/jun. 2005.", "UNIVERSIDADE FEDERAL DE MINAS GERAIS (UFMG). Qualidade Do Ar Na Região Metropolitana de Belo Horizonte: Análise de Tendência Temporal e Perspectivas Futuras. Belo Horizonte: UFMG, 2018. Disponível em: https://repositorio.ufmg.br/server/api/core/bitstreams/38295e36-4164-445d-aeba-e02869440d85/content. Acesso em 06 de maio de 2026", "VORMITTAG, Evangelina da Motta PA de Araújo et al. Análise do monitoramento da qualidade do ar no Brasil. Estudos Avançados, v. 35, n. 102, p. 7-30, 2021."];
+const SITE_URL="https://gabrielwhz.github.io/gemat/";
+const refsDr=document.getElementById("refsDrawer"),refsList=document.getElementById("refsList"),refsSearch=document.getElementById("refsSearch");
+document.getElementById("refsCount").textContent=REFS.length;
+const linkify=t=>esc(t).replace(/(https?:\/\/[^\s]+?)(\.?)(?=\s|$)/g,'<a href="$1" target="_blank" rel="noopener">$1</a>$2').replace(/DOI: (10\.[^\s]+?)(\.?)(?=\s|$)/g,'DOI: <a href="https://doi.org/$1" target="_blank" rel="noopener">$1</a>$2');
+const boldAuthor=h=>h.replace(/^([^.]+?\.)/,'<b>$1</b>');
+function drawRefs(){const q=refsSearch.value.trim().toLowerCase();const l=REFS.filter(r=>!q||r.toLowerCase().includes(q));
+  refsList.innerHTML=l.length?l.map(r=>`<li><span>${boldAuthor(linkify(r))}</span></li>`).join(""):`<p class="dr-empty">Nenhuma referência encontrada.</p>`}
+let refsBack=null;
+function openRefs(){refsBack=document.activeElement;refsDr.hidden=false;document.documentElement.classList.add("locked");drawRefs();refsSearch.focus()}
+function closeRefs(){refsDr.hidden=true;document.documentElement.classList.remove("locked");refsBack&&refsBack.focus()}
+document.getElementById("refsOpen").onclick=openRefs;document.getElementById("refsClose").onclick=closeRefs;
+refsSearch.addEventListener("input",drawRefs);
+refsDr.addEventListener("click",e=>{if(e.target===refsDr)closeRefs()});
+document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!refsDr.hidden)closeRefs()});
+const siteBtn=document.getElementById("siteBtn");
+if(SITE_URL){siteBtn.href=SITE_URL}else{siteBtn.removeAttribute("href");siteBtn.setAttribute("aria-disabled","true");siteBtn.textContent="Link em breve";siteBtn.style.opacity=".7";siteBtn.style.cursor="default"}
+
 /* lightbox */
 const lb=document.getElementById("lb"),lbImg=document.getElementById("lbImg"),lbCap=document.getElementById("lbCap");
 let L=[],I=0,back=null;
-const draw=()=>{lbImg.src=L[I].src;lbImg.alt=L[I].cap;lbCap.textContent=`${L[I].cap} · ${I+1}/${L.length}`};
-function openLb(list,i){L=list;I=Math.max(0,i);back=document.activeElement;draw();lb.hidden=false;document.getElementById("lbClose").focus()}
-const close=()=>{lb.hidden=true;back&&back.focus()},go=d=>{I=(I+d+L.length)%L.length;draw()};
+const draw=()=>{lbImg.src=L[I].hd||L[I].src;lbImg.className=L[I].page?"":"photo";document.querySelector(".lb-stage").scrollTop=0;lbImg.alt=L[I].cap;lbCap.textContent=`${L[I].cap} · ${I+1}/${L.length}`};
+function openLb(list,i){L=list;I=Math.max(0,i);back=document.activeElement;draw();lb.hidden=false;document.documentElement.classList.add("locked");document.getElementById("lbClose").focus()}
+const close=()=>{lb.hidden=true;document.documentElement.classList.remove("locked");back&&back.focus()},go=d=>{I=(I+d+L.length)%L.length;draw()};
 document.getElementById("lbClose").onclick=close;document.getElementById("lbPrev").onclick=()=>go(-1);document.getElementById("lbNext").onclick=()=>go(1);
 lb.addEventListener("click",e=>{if(e.target===lb||e.target.classList.contains("lb-stage"))close()});
-document.addEventListener("keydown",e=>{if(lb.hidden)return;if(e.key==="Escape")close();if(e.key==="ArrowRight")go(1);if(e.key==="ArrowLeft")go(-1)});
+document.addEventListener("keydown",e=>{if(lb.hidden)return;if(e.key==="Escape")close();if(e.key==="ArrowDown"||e.key==="ArrowUp")return;if(e.key==="ArrowRight")go(1);if(e.key==="ArrowLeft")go(-1)});
 
-show(cur);gallery("paginas");
+show(cur);gallery("fotos");
+document.querySelectorAll(".tabs .chip").forEach(b=>b.onclick=()=>gallery(b.dataset.g));
 </script>
 
 </body>
